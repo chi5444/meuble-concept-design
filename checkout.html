@@ -377,13 +377,13 @@
           <div class="order-item-name">${item.title}</div>
           <div class="order-item-qty">الكمية: ${item.quantity}</div>
         </div>
-        <div class="order-item-price">${(item.price * item.quantity).toLocaleString()} دج</div>
+        <div class="order-item-price">${(item.price * item.quantity).toLocaleString()} DT</div>
       </div>
     `).join('');
 
     const total = getCartTotal();
-    document.getElementById('sub-total').textContent = `${total.toLocaleString()} دج`;
-    document.getElementById('grand-total').textContent = `${total.toLocaleString()} دج`;
+    document.getElementById('sub-total').textContent = `${total.toLocaleString()} DT`;
+    document.getElementById('grand-total').textContent = `${total.toLocaleString()} DT`;
   }
 
   function bindEvents(user) {

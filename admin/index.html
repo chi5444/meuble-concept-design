@@ -145,7 +145,7 @@
         <div class="stat-card"><div class="stat-card-num" id="stat-products">—</div><div class="stat-card-label">إجمالي المنتجات</div></div>
         <div class="stat-card"><div class="stat-card-num" id="stat-orders">—</div><div class="stat-card-label">إجمالي الطلبات</div></div>
         <div class="stat-card"><div class="stat-card-num" id="stat-bookings">—</div><div class="stat-card-label">الحجوزات</div></div>
-        <div class="stat-card"><div class="stat-card-num" id="stat-revenue">—</div><div class="stat-card-label">إجمالي المبيعات (دج)</div></div>
+        <div class="stat-card"><div class="stat-card-num" id="stat-revenue">—</div><div class="stat-card-label">إجمالي المبيعات (DT)</div></div>
       </div>
 
       <div class="card" style="margin-top:1.5rem;">
@@ -223,12 +223,12 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">السعر الحالي (دج) *</label>
+            <label class="form-label">السعر الحالي (DT) *</label>
             <input type="number" class="form-input" id="p-price" placeholder="45000" min="0" />
           </div>
 
           <div class="form-group">
-            <label class="form-label">السعر القديم (دج) - اختياري</label>
+            <label class="form-label">السعر القديم (DT) - اختياري</label>
             <input type="number" class="form-input" id="p-old-price" placeholder="60000" min="0" />
           </div>
 
@@ -407,7 +407,7 @@
             <tr>
               <td style="color:var(--text3);font-size:0.8rem;">${o.id?.toString().slice(0,8) || '—'}</td>
               <td>${o.product_title || '—'}</td>
-              <td style="font-family:'Orbitron',monospace;color:var(--gold2);">${(o.amount || 0).toLocaleString()} دج</td>
+              <td style="font-family:'Orbitron',monospace;color:var(--gold2);">${(o.amount || 0).toLocaleString()} DT</td>
               <td>${statusBadge(o.status)}</td>
             </tr>
           `).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:2rem;">لا توجد طلبات</td></tr>'}
@@ -427,7 +427,7 @@
           </div>
         </td>
         <td><span class="badge badge-gold">${p.category || '—'}</span></td>
-        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.9rem;">${(p.price || 0).toLocaleString()} دج</td>
+        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.9rem;">${(p.price || 0).toLocaleString()} DT</td>
         <td><span class="badge ${p.in_stock ? 'badge-success' : 'badge-danger'}">${p.in_stock ? '✓ متوفر' : '✗ نفد'}</span></td>
         <td>
           <div class="action-btn-group">
@@ -446,7 +446,7 @@
         <td style="color:var(--text3);font-size:0.78rem;">${o.id?.toString().slice(0,8)}</td>
         <td>${o.product_title || '—'}</td>
         <td style="font-size:0.85rem;">${o.customer_name || o.user_id?.slice(0,8) || '—'}</td>
-        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.85rem;">${(o.amount || 0).toLocaleString()} دج</td>
+        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.85rem;">${(o.amount || 0).toLocaleString()} DT</td>
         <td>${statusBadge(o.status)}</td>
         <td>
           <div class="action-btn-group">

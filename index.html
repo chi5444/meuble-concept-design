@@ -135,7 +135,7 @@
   <div class="cart-footer">
     <div class="cart-total-row">
       <span class="cart-total-label">المجموع الكلي</span>
-      <span class="cart-total-val" id="cart-total">0 دج</span>
+      <span class="cart-total-val" id="cart-total">0 DT</span>
     </div>
     <a href="checkout.html" class="btn btn-primary btn-full btn-lg" id="checkout-btn">
       إتمام الطلب
@@ -371,7 +371,7 @@
 
     if (cart.length === 0) {
       body.innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><h3>السلة فارغة</h3><p>أضف منتجات لتبدأ التسوق</p></div>`;
-      total.textContent = '0 دج';
+      total.textContent = '0 DT';
       return;
     }
 
@@ -380,7 +380,7 @@
         <div class="cart-item-icon">${item.icon || '🛋️'}</div>
         <div class="cart-item-info">
           <div class="cart-item-title">${item.title}</div>
-          <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} دج</div>
+          <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} DT</div>
           <div class="cart-item-qty">
             <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
             <span class="qty-val">${item.quantity}</span>
@@ -393,7 +393,7 @@
       </div>
     `).join('');
 
-    total.textContent = `${getCartTotal().toLocaleString()} دج`;
+    total.textContent = `${getCartTotal().toLocaleString()} DT`;
   }
 
   window.changeQty = (id, delta) => {
@@ -424,8 +424,8 @@
           <div class="product-category">${product.category || ''}</div>
           <p style="color:var(--text2);font-size:0.88rem;margin-bottom:0.75rem;">${product.region || 'متوفر في الجزائر'}</p>
           <div class="product-pricing" style="margin-bottom:1rem;">
-            <span class="product-price">${product.price.toLocaleString()} دج</span>
-            ${product.old_price ? `<span class="product-old-price">${product.old_price.toLocaleString()} دج</span>` : ''}
+            <span class="product-price">${product.price.toLocaleString()} DT</span>
+            ${product.old_price ? `<span class="product-old-price">${product.old_price.toLocaleString()} DT</span>` : ''}
           </div>
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
             ${product.in_stock ? '<span class="badge badge-success">✓ متوفر في المخزون</span>' : '<span class="badge badge-danger">✗ نفد المخزون</span>'}
