@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meuble Concept Design | أثاث منزلي فاخر</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .category-scroll {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none;
+    }
+    .category-scroll::-webkit-scrollbar { display: none; }
+
+    .features-section {
+      padding: 4rem 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover { border-color: rgba(201,168,76,0.3); }
+    .feature-icon { font-size: 1.75rem; flex-shrink: 0; }
+    .feature-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .feature-desc { font-size: 0.82rem; color: var(--text3); }
+
+    .product-modal-body {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .product-modal-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+
+    .product-modal-details { flex: 1; }
+    .product-modal-details .product-price { font-size: 1.4rem; }
+
+    .mobile-menu-btn {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo-icon">🛋️</div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-main">Meuble</span>
+      <span class="nav-brand-sub">Concept Design</span>
+    </div>
+  </a>
+
+  <div class="nav-links">
+    <a href="index.html" class="active">الرئيسية</a>
+    <a href="index.html#products">المنتجات</a>
+    <a href="booking.html">حجز استشارة</a>
+  </div>
+
+  <div class="nav-actions">
+    <span id="nav-user"></span>
+    <a href="admin/index.html" id="nav-admin" style="display:none" class="btn-icon" title="لوحة التحكم">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    </a>
+    <button class="btn-icon" id="cart-toggle" title="السلة">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span id="cart-badge">0</span>
+    </button>
+    <a href="login.html" id="nav-login" class="btn btn-primary btn-sm">دخول</a>
+    <button id="nav-logout" style="display:none" class="btn btn-ghost btn-sm">خروج</button>
+    <button class="mobile-menu-btn" id="mobile-menu-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- CART SIDEBAR -->
+<div class="cart-backdrop" id="cart-backdrop"></div>
+<aside class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h3 style="font-size:1.05rem;font-weight:700;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-left:0.4rem;color:var(--gold)"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      سلة التسوق
+    </h3>
+    <button class="modal-close" id="cart-close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <div class="empty-state"><div class="empty-icon">🛒</div><h3>السلة فارغة</h3><p>أضف منتجات لتبدأ التسوق</p></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">المجموع الكلي</span>
+      <span class="cart-total-val" id="cart-total">0 دج</span>
+    </div>
+    <a href="checkout.html" class="btn btn-primary btn-full btn-lg" id="checkout-btn">
+      إتمام الطلب
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</aside>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">✦ أثاث منزلي فاخر ✦</div>
+  <h1 class="hero-title">
+    أثّث منزلك بـ<span>ذوق راقٍ</span><br/>وأسعار تناسبك
+  </h1>
+  <p class="hero-subtitle">
+    اكتشف مجموعتنا المتميزة من الأثاث الحديث والكلاسيكي. جودة عالية، تصاميم استثنائية لكل غرفة في منزلك.
+  </p>
+  <div class="hero-actions">
+    <a href="#products" class="btn btn-primary btn-lg">تصفح المنتجات</a>
+    <a href="booking.html" class="btn btn-outline btn-lg">احجز استشارة مجانية</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">500+</span>
+      <span class="stat-label">منتج متوفر</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2k+</span>
+      <span class="stat-label">عميل راضٍ</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">5★</span>
+      <span class="stat-label">تقييم العملاء</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">48h</span>
+      <span class="stat-label">توصيل سريع</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚚</div>
+        <div>
+          <div class="feature-title">توصيل سريع</div>
+          <div class="feature-desc">توصيل مجاني لكل الولايات خلال 48 ساعة</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div>
+          <div class="feature-title">ضمان الجودة</div>
+          <div class="feature-desc">ضمان لمدة سنتين على جميع المنتجات</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <div>
+          <div class="feature-title">إرجاع مجاني</div>
+          <div class="feature-desc">إرجاع مجاني خلال 14 يوم من الاستلام</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <div>
+          <div class="feature-title">دعم على مدار الساعة</div>
+          <div class="feature-desc">فريق دعم متخصص في خدمتك دائماً</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS SECTION -->
+<section id="products" style="padding: 3rem 0;">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">جميع المنتجات</h2>
+      <span id="product-count" style="color:var(--text3);font-size:0.85rem;"></span>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-bar">
+      <div class="search-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="search-input" id="search-input" placeholder="ابحث عن منتج..." />
+      </div>
+
+      <select class="filter-select" id="category-select">
+        <option value="all">كل الفئات</option>
+        <option value="صالون">صالون</option>
+        <option value="غرفة نوم">غرفة نوم</option>
+        <option value="مطبخ">مطبخ</option>
+        <option value="مكتب">مكتب</option>
+        <option value="ديكور">ديكور</option>
+      </select>
+
+      <select class="filter-select" id="stock-select">
+        <option value="all">الكل</option>
+        <option value="instock">متوفر فقط</option>
+      </select>
+    </div>
+
+    <div class="filter-tabs" id="category-tabs">
+      <button class="filter-tab active" data-cat="all">الكل</button>
+      <button class="filter-tab" data-cat="صالون">🛋️ صالون</button>
+      <button class="filter-tab" data-cat="غرفة نوم">🛏️ غرفة نوم</button>
+      <button class="filter-tab" data-cat="مطبخ">🍽️ مطبخ</button>
+      <button class="filter-tab" data-cat="مكتب">💼 مكتب</button>
+      <button class="filter-tab" data-cat="ديكور">🪴 ديكور</button>
+    </div>
+
+    <!-- GRID -->
+    <div id="products-grid" class="products-grid" style="margin-top:1.5rem;">
+      <div class="loading"><div class="spinner"></div><span>جاري التحميل...</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-product-title">تفاصيل المنتج</h3>
+      <button class="modal-close" onclick="document.getElementById('product-modal').classList.remove('open')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="modal-product-body"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-brand" style="margin-bottom:0.75rem">
+        <div class="nav-logo-icon">🛋️</div>
+        <div class="nav-brand-text">
+          <span class="nav-brand-main">Meuble</span>
+          <span class="nav-brand-sub">Concept Design</span>
+        </div>
+      </div>
+      <p>وجهتك الأولى للأثاث المنزلي الفاخر بتصاميم عصرية وجودة لا تُضاهى. نحن نؤمن أن كل منزل يستحق لمسة فنية خاصة.</p>
+    </div>
+    <div class="footer-col">
+      <h4>التنقل</h4>
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#products">المنتجات</a>
+      <a href="booking.html">حجز استشارة</a>
+    </div>
+    <div class="footer-col">
+      <h4>الحساب</h4>
+      <a href="login.html">تسجيل الدخول</a>
+      <a href="register.html">إنشاء حساب</a>
+      <a href="checkout.html">إتمام الطلب</a>
+    </div>
+    <div class="footer-col">
+      <h4>تواصل معنا</h4>
+      <a href="#">📧 info@meubleconcept.com</a>
+      <a href="#">📞 0560 000 000</a>
+      <a href="#">📍 الجزائر</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Meuble Concept Design. جميع الحقوق محفوظة.</span>
+    <span style="color:var(--gold);font-family:'Orbitron',monospace;font-size:0.7rem;">MEUBLE ✦ CONCEPT</span>
+  </div>
+</footer>
+
+<script type="module">
+  import { supabase } from './js/supabase.js';
+  import { getCurrentUser, isAdmin, logout, updateNavAuth } from './js/auth.js';
+  import { fetchProducts, renderProductCard, fetchProductById } from './js/products.js';
+  import { addToCart, getCart, getCartCount, getCartTotal, removeFromCart, updateQuantity, updateCartBadge } from './js/cart.js';
+
+  let allProducts = [];
+  let filters = { category: 'all', search: '', inStock: false };
+
+  async function init() {
+    const user = await getCurrentUser();
+    updateNavAuth(user);
+    updateCartBadge();
+    await loadProducts();
+    bindEvents(user);
+  }
+
+  async function loadProducts() {
+    try {
+      allProducts = await fetchProducts();
+      renderProducts();
+    } catch (e) {
+      document.getElementById('products-grid').innerHTML = `<div class="alert alert-error">حدث خطأ في تحميل المنتجات</div>`;
+    }
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById('products-grid');
+    let filtered = allProducts;
+
+    if (filters.category !== 'all') {
+      filtered = filtered.filter(p => p.category === filters.category);
+    }
+    if (filters.search) {
+      filtered = filtered.filter(p => p.title.toLowerCase().includes(filters.search.toLowerCase()));
+    }
+    if (filters.inStock) {
+      filtered = filtered.filter(p => p.in_stock);
+    }
+
+    document.getElementById('product-count').textContent = `${filtered.length} منتج`;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🔍</div><h3>لا توجد منتجات</h3><p>جرّب تغيير فلتر البحث</p></div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map((p, i) => {
+      const card = renderProductCard(p);
+      return card.replace('class="product-card"', `class="product-card" style="animation-delay:${i * 0.05}s"`);
+    }).join('');
+  }
+
+  function renderCart() {
+    const cart = getCart();
+    const body = document.getElementById('cart-body');
+    const total = document.getElementById('cart-total');
+
+    if (cart.length === 0) {
+      body.innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><h3>السلة فارغة</h3><p>أضف منتجات لتبدأ التسوق</p></div>`;
+      total.textContent = '0 دج';
+      return;
+    }
+
+    body.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-icon">${item.icon || '🛋️'}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-title">${item.title}</div>
+          <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} دج</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+            <span class="qty-val">${item.quantity}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+          </div>
+        </div>
+        <button class="cart-item-remove" onclick="removeItem(${item.id})">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
+      </div>
+    `).join('');
+
+    total.textContent = `${getCartTotal().toLocaleString()} دج`;
+  }
+
+  window.changeQty = (id, delta) => {
+    const cart = getCart();
+    const item = cart.find(i => i.id === id);
+    if (item) {
+      const newQty = (item.quantity || 1) + delta;
+      if (newQty < 1) { removeFromCart(id); }
+      else { updateQuantity(id, newQty); }
+    }
+    renderCart();
+  };
+
+  window.removeItem = (id) => {
+    removeFromCart(id);
+    renderCart();
+  };
+
+  window.showProductDetails = async (id) => {
+    const product = allProducts.find(p => p.id === id);
+    if (!product) return;
+
+    document.getElementById('modal-product-title').textContent = product.title;
+    document.getElementById('modal-product-body').innerHTML = `
+      <div class="product-modal-body">
+        <div class="product-modal-img ${product.img_class || 'img-default'}">${product.icon || '🛋️'}</div>
+        <div class="product-modal-details">
+          <div class="product-category">${product.category || ''}</div>
+          <p style="color:var(--text2);font-size:0.88rem;margin-bottom:0.75rem;">${product.region || 'متوفر في الجزائر'}</p>
+          <div class="product-pricing" style="margin-bottom:1rem;">
+            <span class="product-price">${product.price.toLocaleString()} دج</span>
+            ${product.old_price ? `<span class="product-old-price">${product.old_price.toLocaleString()} دج</span>` : ''}
+          </div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+            ${product.in_stock ? '<span class="badge badge-success">✓ متوفر في المخزون</span>' : '<span class="badge badge-danger">✗ نفد المخزون</span>'}
+            ${product.badge ? `<span class="badge badge-gold">${product.badge}</span>` : ''}
+          </div>
+          <button class="btn btn-primary btn-full ${!product.in_stock ? 'disabled' : ''}" 
+            ${!product.in_stock ? 'disabled' : ''}
+            onclick="window.addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')});document.getElementById('product-modal').classList.remove('open')">
+            🛒 أضف للسلة
+          </button>
+        </div>
+      </div>
+    `;
+    document.getElementById('product-modal').classList.add('open');
+  };
+
+  function bindEvents(user) {
+    // Cart toggle
+    document.getElementById('cart-toggle').addEventListener('click', () => {
+      document.getElementById('cart-sidebar').classList.add('open');
+      document.getElementById('cart-backdrop').classList.add('open');
+      renderCart();
+    });
+
+    document.getElementById('cart-close').addEventListener('click', closeCart);
+    document.getElementById('cart-backdrop').addEventListener('click', closeCart);
+
+    function closeCart() {
+      document.getElementById('cart-sidebar').classList.remove('open');
+      document.getElementById('cart-backdrop').classList.remove('open');
+    }
+
+    // Search
+    let debounce;
+    document.getElementById('search-input').addEventListener('input', e => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => {
+        filters.search = e.target.value;
+        renderProducts();
+      }, 300);
+    });
+
+    // Category select
+    document.getElementById('category-select').addEventListener('change', e => {
+      filters.category = e.target.value;
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.cat === filters.category);
+      });
+      renderProducts();
+    });
+
+    // Stock filter
+    document.getElementById('stock-select').addEventListener('change', e => {
+      filters.inStock = e.target.value === 'instock';
+      renderProducts();
+    });
+
+    // Category tabs
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        filters.category = tab.dataset.cat;
+        document.getElementById('category-select').value = filters.category;
+        renderProducts();
+      });
+    });
+
+    // Logout
+    document.getElementById('nav-logout')?.addEventListener('click', () => logout());
+
+    // Modal close on backdrop
+    document.getElementById('product-modal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+    });
+  }
+
+  init();
+</script>
+</body>
+</html>

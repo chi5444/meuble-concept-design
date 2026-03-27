@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة التحكم | Meuble Concept Design</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .admin-header {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.82rem;
+      color: var(--gold2);
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    .admin-badge {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #000;
+      font-size: 0.68rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .product-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .img-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .img-class-opt {
+      padding: 0.6rem 1rem;
+      background: var(--bg3);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      transition: var(--transition);
+      color: var(--text2);
+    }
+
+    .img-class-opt.selected { border-color: var(--gold); color: var(--gold2); background: rgba(201,168,76,0.08); }
+    .img-class-opt span { font-size: 1.5rem; }
+
+    .action-btn-group {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-left: 0.4rem;
+    }
+
+    .status-pending .status-dot { background: #e6a84c; }
+    .status-confirmed .status-dot { background: var(--success); }
+    .status-cancelled .status-dot { background: var(--danger); }
+
+    @media (max-width: 768px) {
+      .product-form-grid { grid-template-columns: 1fr; }
+      .admin-header { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ADMIN HEADER -->
+<header class="admin-header">
+  <a href="../index.html" class="admin-brand">
+    🛋️ Meuble Concept
+    <span class="admin-badge">ADMIN</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:0.75rem;">
+    <span id="admin-user" style="font-size:0.85rem;color:var(--text3);"></span>
+    <a href="../index.html" class="btn btn-ghost btn-sm">← الموقع</a>
+    <button id="logout-btn" class="btn btn-danger btn-sm">خروج</button>
+  </div>
+</header>
+
+<div class="admin-layout">
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <button class="admin-nav-item active" data-tab="overview">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      نظرة عامة
+    </button>
+    <button class="admin-nav-item" data-tab="products">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      المنتجات
+    </button>
+    <button class="admin-nav-item" data-tab="add-product">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      إضافة منتج
+    </button>
+    <button class="admin-nav-item" data-tab="orders">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      الطلبات
+    </button>
+    <button class="admin-nav-item" data-tab="bookings">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      الحجوزات
+    </button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-content">
+
+    <!-- OVERVIEW -->
+    <div class="tab-content active" id="tab-overview">
+      <div class="section-header">
+        <h2 class="section-title">نظرة عامة</h2>
+        <span id="overview-date" style="color:var(--text3);font-size:0.85rem;"></span>
+      </div>
+
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card"><div class="stat-card-num" id="stat-products">—</div><div class="stat-card-label">إجمالي المنتجات</div></div>
+        <div class="stat-card"><div class="stat-card-num" id="stat-orders">—</div><div class="stat-card-label">إجمالي الطلبات</div></div>
+        <div class="stat-card"><div class="stat-card-num" id="stat-bookings">—</div><div class="stat-card-label">الحجوزات</div></div>
+        <div class="stat-card"><div class="stat-card-num" id="stat-revenue">—</div><div class="stat-card-label">إجمالي المبيعات (دج)</div></div>
+      </div>
+
+      <div class="card" style="margin-top:1.5rem;">
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:1.25rem;">آخر الطلبات</h3>
+        <div class="table-wrap" id="recent-orders-table">
+          <div class="loading"><div class="spinner"></div> جاري التحميل...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS LIST -->
+    <div class="tab-content" id="tab-products">
+      <div class="section-header">
+        <h2 class="section-title">إدارة المنتجات</h2>
+        <button class="btn btn-primary btn-sm" onclick="switchTab('add-product')">+ إضافة منتج</button>
+      </div>
+
+      <div class="filter-bar" style="padding-top:0;">
+        <div class="search-wrap" style="max-width:300px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="search-input" id="admin-product-search" placeholder="ابحث عن منتج..." />
+        </div>
+      </div>
+
+      <div class="table-wrap card">
+        <table id="products-table">
+          <thead>
+            <tr>
+              <th>المنتج</th>
+              <th>الفئة</th>
+              <th>السعر</th>
+              <th>الحالة</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="products-tbody">
+            <tr><td colspan="5"><div class="loading"><div class="spinner"></div> جاري التحميل...</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ADD/EDIT PRODUCT -->
+    <div class="tab-content" id="tab-add-product">
+      <div class="section-header">
+        <h2 class="section-title" id="product-form-title">إضافة منتج جديد</h2>
+        <button class="btn btn-ghost btn-sm" onclick="resetProductForm()">تفريغ النموذج</button>
+      </div>
+
+      <div class="card">
+        <div id="product-form-alert"></div>
+        <input type="hidden" id="edit-product-id" />
+
+        <div class="product-form-grid">
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">اسم المنتج *</label>
+            <input type="text" class="form-input" id="p-title" placeholder="طقم صالون فاخر" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">الفئة *</label>
+            <select class="form-input" id="p-category">
+              <option value="">اختر الفئة</option>
+              <option>صالون</option>
+              <option>غرفة نوم</option>
+              <option>مطبخ</option>
+              <option>مكتب</option>
+              <option>ديكور</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Game / الاسم المختصر</label>
+            <input type="text" class="form-input" id="p-game" placeholder="SALON" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">السعر الحالي (دج) *</label>
+            <input type="number" class="form-input" id="p-price" placeholder="45000" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">السعر القديم (دج) - اختياري</label>
+            <input type="number" class="form-input" id="p-old-price" placeholder="60000" min="0" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">الأيقونة (Emoji) *</label>
+            <input type="text" class="form-input" id="p-icon" placeholder="🛋️" maxlength="4" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">الشارة (Badge) - اختياري</label>
+            <input type="text" class="form-input" id="p-badge" placeholder="جديد / الأكثر مبيعاً" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">المنشأ / المنطقة - اختياري</label>
+            <input type="text" class="form-input" id="p-region" placeholder="صنع في إيطاليا" />
+          </div>
+
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label">صنف الصورة (لون الخلفية)</label>
+            <div class="img-preview">
+              <div class="img-class-opt selected" data-class="img-default"><span>⬛</span>افتراضي</div>
+              <div class="img-class-opt" data-class="img-sofa"><span>🟣</span>صالون</div>
+              <div class="img-class-opt" data-class="img-bed"><span>🔵</span>نوم</div>
+              <div class="img-class-opt" data-class="img-table"><span>🟡</span>طاولة</div>
+              <div class="img-class-opt" data-class="img-chair"><span>🔷</span>كرسي</div>
+              <div class="img-class-opt" data-class="img-wardrobe"><span>🔴</span>خزانة</div>
+              <div class="img-class-opt" data-class="img-office"><span>🟢</span>مكتب</div>
+              <div class="img-class-opt" data-class="img-decor"><span>⬜</span>ديكور</div>
+            </div>
+            <input type="hidden" id="p-img-class" value="img-default" />
+          </div>
+
+          <div class="form-group" style="grid-column:1/-1;display:flex;align-items:center;gap:0.75rem;">
+            <input type="checkbox" id="p-in-stock" checked style="width:18px;height:18px;accent-color:var(--gold);cursor:pointer;" />
+            <label for="p-in-stock" class="form-label" style="margin:0;cursor:pointer;">متوفر في المخزون</label>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;margin-top:1rem;">
+          <button class="btn btn-primary btn-lg" id="save-product-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            حفظ المنتج
+          </button>
+          <button class="btn btn-ghost" onclick="resetProductForm()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div class="tab-content" id="tab-orders">
+      <div class="section-header">
+        <h2 class="section-title">الطلبات</h2>
+        <select class="filter-select" id="order-status-filter">
+          <option value="all">كل الطلبات</option>
+          <option value="pending">قيد الانتظار</option>
+          <option value="confirmed">مؤكّد</option>
+          <option value="cancelled">ملغى</option>
+        </select>
+      </div>
+
+      <div class="table-wrap card">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>المنتج</th>
+              <th>العميل</th>
+              <th>المبلغ</th>
+              <th>الحالة</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody">
+            <tr><td colspan="6"><div class="loading"><div class="spinner"></div> جاري التحميل...</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BOOKINGS -->
+    <div class="tab-content" id="tab-bookings">
+      <div class="section-header">
+        <h2 class="section-title">الحجوزات</h2>
+        <select class="filter-select" id="booking-status-filter">
+          <option value="all">كل الحجوزات</option>
+          <option value="pending">قيد الانتظار</option>
+          <option value="confirmed">مؤكّد</option>
+          <option value="cancelled">ملغى</option>
+        </select>
+      </div>
+
+      <div class="table-wrap card">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الاسم</th>
+              <th>البريد</th>
+              <th>الخدمة</th>
+              <th>الموعد</th>
+              <th>الحالة</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="bookings-tbody">
+            <tr><td colspan="7"><div class="loading"><div class="spinner"></div> جاري التحميل...</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script type="module">
+  import { supabase } from '../js/supabase.js';
+  import { requireAdmin, logout } from '../js/auth.js';
+
+  let allProducts = [];
+  let allOrders = [];
+  let allBookings = [];
+  let selectedImgClass = 'img-default';
+
+  async function init() {
+    const user = await requireAdmin();
+    if (!user) return;
+
+    document.getElementById('admin-user').textContent = user.email;
+    document.getElementById('logout-btn').addEventListener('click', () => logout());
+    document.getElementById('overview-date').textContent = new Date().toLocaleDateString('ar-DZ', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+    bindNav();
+    await loadAll();
+  }
+
+  async function loadAll() {
+    await Promise.all([loadProducts(), loadOrders(), loadBookings()]);
+    updateStats();
+  }
+
+  async function loadProducts() {
+    const { data } = await supabase.from('products').select('*').order('id', { ascending: false });
+    allProducts = data || [];
+    renderProductsTable();
+  }
+
+  async function loadOrders() {
+    const { data } = await supabase.from('orders').select('*').order('id', { ascending: false });
+    allOrders = data || [];
+    renderOrdersTable();
+    renderRecentOrders();
+  }
+
+  async function loadBookings() {
+    const { data } = await supabase.from('bookings').select('*').order('id', { ascending: false });
+    allBookings = data || [];
+    renderBookingsTable();
+  }
+
+  function updateStats() {
+    document.getElementById('stat-products').textContent = allProducts.length;
+    document.getElementById('stat-orders').textContent = allOrders.length;
+    document.getElementById('stat-bookings').textContent = allBookings.length;
+    const revenue = allOrders.filter(o => o.status !== 'cancelled').reduce((s,o) => s + (o.amount || 0), 0);
+    document.getElementById('stat-revenue').textContent = revenue.toLocaleString();
+  }
+
+  function renderRecentOrders() {
+    const recent = allOrders.slice(0, 5);
+    document.getElementById('recent-orders-table').innerHTML = `
+      <table>
+        <thead><tr><th>#</th><th>المنتج</th><th>المبلغ</th><th>الحالة</th></tr></thead>
+        <tbody>
+          ${recent.length ? recent.map(o => `
+            <tr>
+              <td style="color:var(--text3);font-size:0.8rem;">${o.id?.toString().slice(0,8) || '—'}</td>
+              <td>${o.product_title || '—'}</td>
+              <td style="font-family:'Orbitron',monospace;color:var(--gold2);">${(o.amount || 0).toLocaleString()} دج</td>
+              <td>${statusBadge(o.status)}</td>
+            </tr>
+          `).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:2rem;">لا توجد طلبات</td></tr>'}
+        </tbody>
+      </table>
+    `;
+  }
+
+  function renderProductsTable(filter = '') {
+    const filtered = filter ? allProducts.filter(p => p.title.toLowerCase().includes(filter.toLowerCase())) : allProducts;
+    document.getElementById('products-tbody').innerHTML = filtered.length ? filtered.map(p => `
+      <tr>
+        <td>
+          <div style="display:flex;align-items:center;gap:0.6rem;">
+            <div style="width:36px;height:36px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">${p.icon || '🛋️'}</div>
+            <span style="font-weight:600;">${p.title}</span>
+          </div>
+        </td>
+        <td><span class="badge badge-gold">${p.category || '—'}</span></td>
+        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.9rem;">${(p.price || 0).toLocaleString()} دج</td>
+        <td><span class="badge ${p.in_stock ? 'badge-success' : 'badge-danger'}">${p.in_stock ? '✓ متوفر' : '✗ نفد'}</span></td>
+        <td>
+          <div class="action-btn-group">
+            <button class="btn btn-outline btn-sm" onclick="editProduct(${p.id})">تعديل</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteProductById(${p.id})">حذف</button>
+          </div>
+        </td>
+      </tr>
+    `).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--text3);padding:2rem;">لا توجد منتجات</td></tr>';
+  }
+
+  function renderOrdersTable(statusFilter = 'all') {
+    const filtered = statusFilter === 'all' ? allOrders : allOrders.filter(o => o.status === statusFilter);
+    document.getElementById('orders-tbody').innerHTML = filtered.length ? filtered.map(o => `
+      <tr>
+        <td style="color:var(--text3);font-size:0.78rem;">${o.id?.toString().slice(0,8)}</td>
+        <td>${o.product_title || '—'}</td>
+        <td style="font-size:0.85rem;">${o.customer_name || o.user_id?.slice(0,8) || '—'}</td>
+        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.85rem;">${(o.amount || 0).toLocaleString()} دج</td>
+        <td>${statusBadge(o.status)}</td>
+        <td>
+          <div class="action-btn-group">
+            <select class="filter-select" style="padding:0.35rem 0.6rem;font-size:0.8rem;" onchange="updateOrderStatus('${o.id}', this.value)">
+              <option ${o.status==='pending'?'selected':''} value="pending">انتظار</option>
+              <option ${o.status==='confirmed'?'selected':''} value="confirmed">مؤكّد</option>
+              <option ${o.status==='shipped'?'selected':''} value="shipped">شُحن</option>
+              <option ${o.status==='cancelled'?'selected':''} value="cancelled">ملغى</option>
+            </select>
+          </div>
+        </td>
+      </tr>
+    `).join('') : '<tr><td colspan="6" style="text-align:center;color:var(--text3);padding:2rem;">لا توجد طلبات</td></tr>';
+  }
+
+  function renderBookingsTable(statusFilter = 'all') {
+    const filtered = statusFilter === 'all' ? allBookings : allBookings.filter(b => b.status === statusFilter);
+    document.getElementById('bookings-tbody').innerHTML = filtered.length ? filtered.map(b => {
+      const d = b.date ? new Date(b.date) : null;
+      return `
+        <tr>
+          <td style="color:var(--text3);font-size:0.78rem;">${b.id?.toString().slice(0,8)}</td>
+          <td style="font-weight:600;">${b.name || '—'}</td>
+          <td style="font-size:0.82rem;color:var(--text2);">${b.email || '—'}</td>
+          <td><span class="badge badge-info">${b.service || '—'}</span></td>
+          <td style="font-size:0.82rem;">${d ? d.toLocaleString('ar-DZ') : '—'}</td>
+          <td>${statusBadge(b.status)}</td>
+          <td>
+            <div class="action-btn-group">
+              <select class="filter-select" style="padding:0.35rem 0.6rem;font-size:0.8rem;" onchange="updateBookingStatus('${b.id}', this.value)">
+                <option ${b.status==='pending'?'selected':''} value="pending">انتظار</option>
+                <option ${b.status==='confirmed'?'selected':''} value="confirmed">مؤكّد</option>
+                <option ${b.status==='cancelled'?'selected':''} value="cancelled">ملغى</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('') : '<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:2rem;">لا توجد حجوزات</td></tr>';
+  }
+
+  function statusBadge(status) {
+    const map = {
+      pending: ['badge-gold', 'انتظار ⏳'],
+      confirmed: ['badge-success', 'مؤكّد ✓'],
+      cancelled: ['badge-danger', 'ملغى ✗'],
+      shipped: ['badge-info', 'شُحن 🚚'],
+    };
+    const [cls, label] = map[status] || ['badge-gray', status];
+    return `<span class="badge ${cls}">${label}</span>`;
+  }
+
+  // PRODUCT CRUD
+  document.getElementById('save-product-btn').addEventListener('click', async () => {
+    const id = document.getElementById('edit-product-id').value;
+    const title = document.getElementById('p-title').value.trim();
+    const category = document.getElementById('p-category').value;
+    const price = parseFloat(document.getElementById('p-price').value);
+    const alertEl = document.getElementById('product-form-alert');
+
+    alertEl.innerHTML = '';
+
+    if (!title || !category || !price) {
+      alertEl.innerHTML = '<div class="alert alert-error">يرجى ملء الحقول المطلوبة (*)</div>';
+      return;
+    }
+
+    const productData = {
+      title,
+      category,
+      price,
+      old_price: parseFloat(document.getElementById('p-old-price').value) || null,
+      icon: document.getElementById('p-icon').value || '🛋️',
+      badge: document.getElementById('p-badge').value.trim() || null,
+      region: document.getElementById('p-region').value.trim() || null,
+      game: document.getElementById('p-game').value.trim() || null,
+      img_class: selectedImgClass,
+      in_stock: document.getElementById('p-in-stock').checked,
+    };
+
+    const btn = document.getElementById('save-product-btn');
+    btn.disabled = true;
+    btn.textContent = 'جاري الحفظ...';
+
+    try {
+      if (id) {
+        await supabase.from('products').update(productData).eq('id', id);
+        alertEl.innerHTML = '<div class="alert alert-success">✓ تم تحديث المنتج بنجاح</div>';
+      } else {
+        await supabase.from('products').insert([productData]);
+        alertEl.innerHTML = '<div class="alert alert-success">✓ تم إضافة المنتج بنجاح</div>';
+      }
+      await loadProducts();
+      updateStats();
+      setTimeout(() => { if (!id) resetProductForm(); }, 1500);
+    } catch (e) {
+      alertEl.innerHTML = `<div class="alert alert-error">خطأ: ${e.message}</div>`;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> حفظ المنتج';
+    }
+  });
+
+  window.editProduct = (id) => {
+    const p = allProducts.find(pr => pr.id === id);
+    if (!p) return;
+
+    document.getElementById('edit-product-id').value = p.id;
+    document.getElementById('p-title').value = p.title;
+    document.getElementById('p-category').value = p.category || '';
+    document.getElementById('p-price').value = p.price;
+    document.getElementById('p-old-price').value = p.old_price || '';
+    document.getElementById('p-icon').value = p.icon || '';
+    document.getElementById('p-badge').value = p.badge || '';
+    document.getElementById('p-region').value = p.region || '';
+    document.getElementById('p-game').value = p.game || '';
+    document.getElementById('p-in-stock').checked = p.in_stock;
+
+    // Set img class
+    selectedImgClass = p.img_class || 'img-default';
+    document.querySelectorAll('.img-class-opt').forEach(opt => {
+      opt.classList.toggle('selected', opt.dataset.class === selectedImgClass);
+    });
+    document.getElementById('p-img-class').value = selectedImgClass;
+
+    document.getElementById('product-form-title').textContent = 'تعديل منتج';
+    switchTab('add-product');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  window.deleteProductById = async (id) => {
+    if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
+    await supabase.from('products').delete().eq('id', id);
+    await loadProducts();
+    updateStats();
+  };
+
+  window.updateOrderStatus = async (id, status) => {
+    await supabase.from('orders').update({ status }).eq('id', id);
+    await loadOrders();
+    updateStats();
+  };
+
+  window.updateBookingStatus = async (id, status) => {
+    await supabase.from('bookings').update({ status }).eq('id', id);
+    await loadBookings();
+  };
+
+  window.resetProductForm = () => {
+    document.getElementById('edit-product-id').value = '';
+    document.getElementById('p-title').value = '';
+    document.getElementById('p-category').value = '';
+    document.getElementById('p-price').value = '';
+    document.getElementById('p-old-price').value = '';
+    document.getElementById('p-icon').value = '';
+    document.getElementById('p-badge').value = '';
+    document.getElementById('p-region').value = '';
+    document.getElementById('p-game').value = '';
+    document.getElementById('p-in-stock').checked = true;
+    document.getElementById('product-form-alert').innerHTML = '';
+    document.getElementById('product-form-title').textContent = 'إضافة منتج جديد';
+    selectedImgClass = 'img-default';
+    document.querySelectorAll('.img-class-opt').forEach(opt => {
+      opt.classList.toggle('selected', opt.dataset.class === 'img-default');
+    });
+  };
+
+  // IMG CLASS SELECTION
+  document.querySelectorAll('.img-class-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.img-class-opt').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      selectedImgClass = opt.dataset.class;
+      document.getElementById('p-img-class').value = selectedImgClass;
+    });
+  });
+
+  // SEARCH
+  document.getElementById('admin-product-search').addEventListener('input', e => {
+    renderProductsTable(e.target.value);
+  });
+
+  // STATUS FILTERS
+  document.getElementById('order-status-filter').addEventListener('change', e => renderOrdersTable(e.target.value));
+  document.getElementById('booking-status-filter').addEventListener('change', e => renderBookingsTable(e.target.value));
+
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById(`tab-${tabId}`).classList.add('active');
+    document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+  }
+
+  window.switchTab = switchTab;
+
+  function bindNav() {
+    document.querySelectorAll('.admin-nav-item[data-tab]').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+  }
+
+  init();
+</script>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إتمام الطلب | Meuble Concept Design</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 2rem;
+      padding: 2.5rem 0 3rem;
+    }
+
+    .checkout-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .checkout-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text);
+    }
+
+    .checkout-card-title .step-num { background: linear-gradient(135deg,var(--gold),var(--gold2)); color:#000; width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700; }
+
+    .order-summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.75rem;
+      position: sticky;
+      top: 90px;
+    }
+
+    .order-items { margin-bottom: 1.25rem; }
+
+    .order-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-item-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .order-item-name { font-size: 0.88rem; font-weight: 600; }
+    .order-item-qty { font-size: 0.78rem; color: var(--text3); margin-top: 0.15rem; }
+    .order-item-price { margin-right: auto; font-size: 0.9rem; color: var(--gold2); font-weight: 600; font-family: 'Orbitron', monospace; }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.88rem;
+    }
+
+    .price-row .label { color: var(--text3); }
+    .price-row.total { border-top: 1px solid var(--border); padding-top: 0.85rem; margin-top: 0.35rem; font-weight: 700; font-size: 1rem; }
+    .price-row.total .val { font-family: 'Orbitron', monospace; color: var(--gold2); font-size: 1.15rem; }
+
+    .wilaya-select { width: 100%; }
+
+    .success-page {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .success-animation {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, rgba(76,175,112,0.15), rgba(76,175,112,0.05));
+      border: 2px solid var(--success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      animation: scaleIn 0.5s ease;
+    }
+
+    @keyframes scaleIn { from { transform: scale(0); } to { transform: scale(1); } }
+
+    @media (max-width: 900px) {
+      .checkout-layout { grid-template-columns: 1fr; }
+      .order-summary-card { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo-icon">🛋️</div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-main">Meuble</span>
+      <span class="nav-brand-sub">Concept Design</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">الرئيسية</a>
+    <a href="index.html#products">المنتجات</a>
+  </div>
+  <div class="nav-actions">
+    <span id="nav-user"></span>
+    <a href="login.html" id="nav-login" class="btn btn-primary btn-sm">دخول</a>
+    <button id="nav-logout" style="display:none" class="btn btn-ghost btn-sm">خروج</button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <!-- STEPS -->
+    <div class="checkout-steps" id="checkout-steps">
+      <div class="step done" id="st1">
+        <div class="step-num">✓</div>
+        <span>السلة</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step active" id="st2">
+        <div class="step-num">2</div>
+        <span>البيانات</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="st3">
+        <div class="step-num">3</div>
+        <span>الدفع</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="st4">
+        <div class="step-num">4</div>
+        <span>تأكيد</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- EMPTY CART -->
+  <div id="empty-cart" style="display:none" class="empty-state" style="padding:5rem 1rem;">
+    <div class="empty-icon">🛒</div>
+    <h3>سلتك فارغة!</h3>
+    <p>أضف منتجات أولاً ثم ارجع لإتمام الطلب</p>
+    <a href="index.html#products" class="btn btn-primary" style="margin-top:1.5rem;">تصفح المنتجات</a>
+  </div>
+
+  <!-- SUCCESS PAGE -->
+  <div id="success-page" style="display:none">
+    <div class="success-page">
+      <div class="success-animation">✅</div>
+      <h2 style="font-size:1.75rem;margin-bottom:0.5rem;">تم استلام طلبك!</h2>
+      <p style="color:var(--text2);max-width:400px;margin-bottom:0.5rem;">شكراً لثقتك بـ Meuble Concept Design. سيتواصل معك فريقنا خلال 24 ساعة لتأكيد التوصيل.</p>
+      <p style="color:var(--gold2);font-family:'Orbitron',monospace;font-size:0.85rem;margin-bottom:2rem;" id="order-ref"></p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+        <a href="index.html" class="btn btn-primary btn-lg">العودة للمتجر</a>
+        <a href="index.html#products" class="btn btn-outline">تصفح المزيد</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT FORM -->
+  <div id="checkout-layout" class="checkout-layout">
+    <div>
+      <div id="alert-container"></div>
+
+      <!-- DELIVERY INFO -->
+      <div class="checkout-card">
+        <div class="checkout-card-title">
+          <span class="step-num">1</span>
+          معلومات التوصيل
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">الاسم الكامل *</label>
+            <input type="text" class="form-input" id="full-name" placeholder="محمد أمين" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">رقم الهاتف *</label>
+            <input type="tel" class="form-input" id="phone" placeholder="0556 000 000" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">الولاية *</label>
+          <select class="form-input wilaya-select" id="wilaya">
+            <option value="">اختر الولاية</option>
+            <option>الجزائر العاصمة - 16</option>
+            <option>وهران - 31</option>
+            <option>قسنطينة - 25</option>
+            <option>عنابة - 23</option>
+            <option>سطيف - 19</option>
+            <option>تلمسان - 13</option>
+            <option>بجاية - 06</option>
+            <option>تيزي وزو - 15</option>
+            <option>بسكرة - 07</option>
+            <option>الشلف - 02</option>
+            <option>البليدة - 09</option>
+            <option>باتنة - 05</option>
+            <option>سكيكدة - 21</option>
+            <option>جيجل - 18</option>
+            <option>مستغانم - 27</option>
+            <option>ولاية أخرى</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">العنوان التفصيلي *</label>
+          <textarea class="form-textarea" id="address" placeholder="رقم الشارع، الحي، البلدية..." style="min-height:80px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ملاحظات للتوصيل</label>
+          <input type="text" class="form-input" id="delivery-notes" placeholder="طابق، جانب المبنى..." />
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="checkout-card">
+        <div class="checkout-card-title">
+          <span class="step-num">2</span>
+          طريقة الدفع
+        </div>
+
+        <div class="payment-options" id="payment-options">
+          <label class="payment-option selected" data-pay="cash">
+            <input type="radio" name="payment" value="cash" checked />
+            <div class="pay-icon">💵</div>
+            <div class="pay-label">الدفع عند الاستلام</div>
+          </label>
+          <label class="payment-option" data-pay="ccp">
+            <input type="radio" name="payment" value="ccp" />
+            <div class="pay-icon">🏦</div>
+            <div class="pay-label">CCP بريد الجزائر</div>
+          </label>
+          <label class="payment-option" data-pay="baridimob">
+            <input type="radio" name="payment" value="baridimob" />
+            <div class="pay-icon">📱</div>
+            <div class="pay-label">BaridiMob</div>
+          </label>
+          <label class="payment-option" data-pay="transfer">
+            <input type="radio" name="payment" value="transfer" />
+            <div class="pay-icon">🔄</div>
+            <div class="pay-label">تحويل بنكي</div>
+          </label>
+        </div>
+
+        <!-- Payment details panels -->
+        <div id="pay-details-cash" style="margin-top:1rem;" class="pay-panel">
+          <div class="alert alert-success">
+            💡 ستدفع نقداً عند استلام طلبك. لا يلزمك أي إجراء إضافي الآن.
+          </div>
+        </div>
+        <div id="pay-details-ccp" style="margin-top:1rem;display:none;" class="pay-panel">
+          <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
+            <strong>حساب CCP للتحويل:</strong>
+            <span>الحساب: <strong style="font-family:'Orbitron',monospace;">00123456789</strong></span>
+            <span>المفتاح: <strong>74</strong></span>
+            <span>بعد التحويل يرجى إرسال إيصال على واتساب: <strong>0560 000 000</strong></span>
+          </div>
+        </div>
+        <div id="pay-details-baridimob" style="margin-top:1rem;display:none;" class="pay-panel">
+          <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
+            <strong>رقم BaridiMob:</strong>
+            <span style="font-family:'Orbitron',monospace;font-size:1.1rem;">0560 000 000</span>
+            <span style="font-size:0.82rem;">أرسل المبلغ وأرفق صورة الإيصال في رسالة الطلب</span>
+          </div>
+        </div>
+        <div id="pay-details-transfer" style="margin-top:1rem;display:none;" class="pay-panel">
+          <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
+            <strong>بيانات الحساب البنكي:</strong>
+            <span>البنك: BNA - بنك الجزائر</span>
+            <span>RIB: <strong style="font-family:'Orbitron',monospace;font-size:0.82rem;">00200 12345 67890123456 78</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-full btn-lg" id="confirm-btn">
+        تأكيد الطلب
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </button>
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <div>
+      <div class="order-summary-card">
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:1.25rem;">ملخص الطلب</h3>
+
+        <div class="order-items" id="order-items">
+          <!-- JS -->
+        </div>
+
+        <div class="price-row">
+          <span class="label">المجموع الفرعي</span>
+          <span class="val" id="sub-total"></span>
+        </div>
+        <div class="price-row">
+          <span class="label">التوصيل</span>
+          <span class="val" style="color:var(--success);">مجاني 🎁</span>
+        </div>
+        <div class="price-row total">
+          <span>المجموع الكلي</span>
+          <span class="val" id="grand-total"></span>
+        </div>
+
+        <div style="margin-top:1.25rem;padding:0.9rem;background:var(--bg3);border-radius:10px;font-size:0.8rem;color:var(--text3);line-height:1.7;">
+          🔒 جميع بياناتك مشفّرة وآمنة<br/>
+          📦 التوصيل خلال 48 - 72 ساعة<br/>
+          🔄 إرجاع مجاني خلال 14 يوم
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { supabase } from './js/supabase.js';
+  import { getCurrentUser, logout, updateNavAuth } from './js/auth.js';
+  import { getCart, getCartTotal, clearCart } from './js/cart.js';
+
+  let selectedPayment = 'cash';
+
+  async function init() {
+    const user = await getCurrentUser();
+    updateNavAuth(user);
+    document.getElementById('nav-logout')?.addEventListener('click', () => logout());
+
+    if (user) {
+      document.getElementById('full-name').value = user.user_metadata?.full_name || '';
+    }
+
+    const cart = getCart();
+    if (cart.length === 0) {
+      document.getElementById('checkout-layout').style.display = 'none';
+      document.getElementById('empty-cart').style.display = 'block';
+      document.getElementById('checkout-steps').style.display = 'none';
+      return;
+    }
+
+    renderOrderItems(cart);
+    bindEvents(user);
+  }
+
+  function renderOrderItems(cart) {
+    const container = document.getElementById('order-items');
+    container.innerHTML = cart.map(item => `
+      <div class="order-item">
+        <div class="order-item-icon">${item.icon || '🛋️'}</div>
+        <div style="flex:1">
+          <div class="order-item-name">${item.title}</div>
+          <div class="order-item-qty">الكمية: ${item.quantity}</div>
+        </div>
+        <div class="order-item-price">${(item.price * item.quantity).toLocaleString()} دج</div>
+      </div>
+    `).join('');
+
+    const total = getCartTotal();
+    document.getElementById('sub-total').textContent = `${total.toLocaleString()} دج`;
+    document.getElementById('grand-total').textContent = `${total.toLocaleString()} دج`;
+  }
+
+  function bindEvents(user) {
+    // Payment options
+    document.querySelectorAll('.payment-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        selectedPayment = opt.dataset.pay;
+
+        document.querySelectorAll('.pay-panel').forEach(p => p.style.display = 'none');
+        const panel = document.getElementById(`pay-details-${selectedPayment}`);
+        if (panel) panel.style.display = 'block';
+      });
+    });
+
+    // Confirm order
+    document.getElementById('confirm-btn').addEventListener('click', () => submitOrder(user));
+  }
+
+  async function submitOrder(user) {
+    const name = document.getElementById('full-name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const wilaya = document.getElementById('wilaya').value;
+    const address = document.getElementById('address').value.trim();
+    const alertBox = document.getElementById('alert-container');
+
+    alertBox.innerHTML = '';
+
+    if (!name || !phone || !wilaya || !address) {
+      alertBox.innerHTML = '<div class="alert alert-error">يرجى ملء جميع الحقول المطلوبة (*)</div>';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const btn = document.getElementById('confirm-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;margin:auto"></div>';
+
+    try {
+      const cart = getCart();
+      const total = getCartTotal();
+
+      // Insert one order per cart item
+      const orders = cart.map(item => ({
+        user_id: user?.id || null,
+        product_id: item.id,
+        product_title: item.title,
+        amount: item.price * item.quantity,
+        status: 'pending',
+        customer_name: name,
+        phone,
+        wilaya,
+        address,
+        payment_method: selectedPayment,
+        quantity: item.quantity,
+      }));
+
+      const { error } = await supabase.from('orders').insert(orders);
+      if (error) throw error;
+
+      clearCart();
+
+      // Show success
+      document.getElementById('checkout-layout').style.display = 'none';
+      document.getElementById('success-page').style.display = 'block';
+      document.getElementById('order-ref').textContent = `رقم الطلب: MCD-${Date.now().toString().slice(-6)}`;
+
+      // Update steps
+      ['st1','st2','st3'].forEach(s => {
+        const el = document.getElementById(s);
+        el.classList.remove('active');
+        el.classList.add('done');
+        el.querySelector('.step-num').textContent = '✓';
+      });
+      document.getElementById('st4').classList.add('active');
+
+    } catch (e) {
+      alertBox.innerHTML = `<div class="alert alert-error">حدث خطأ: ${e.message}</div>`;
+      btn.disabled = false;
+      btn.innerHTML = 'تأكيد الطلب';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حجز استشارة | Meuble Concept Design</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 2rem;
+      padding: 2.5rem 0 3rem;
+    }
+
+    .booking-form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 2rem; }
+
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
+
+    .service-option {
+      padding: 1rem;
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .service-option:hover { border-color: var(--border2); }
+    .service-option.selected { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+    .service-option input[type="radio"] { display: none; }
+    .service-icon { font-size: 1.5rem; display: block; margin-bottom: 0.35rem; }
+    .service-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .service-desc { font-size: 0.75rem; color: var(--text3); margin-top: 0.2rem; }
+
+    .time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+
+    .time-slot {
+      padding: 0.55rem 0.25rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text2);
+      font-weight: 500;
+    }
+
+    .time-slot:hover:not(.unavailable) { border-color: var(--gold); color: var(--gold2); }
+    .time-slot.selected { background: rgba(201,168,76,0.12); border-color: var(--gold); color: var(--gold2); }
+    .time-slot.unavailable { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+
+    .sidebar-sticky { position: sticky; top: 90px; }
+
+    .booking-summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+
+    .summary-row:last-child { border-bottom: none; }
+    .summary-label { color: var(--text3); }
+    .summary-val { color: var(--text); font-weight: 600; text-align: left; }
+
+    .why-us { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius2); padding: 1.5rem; }
+    .why-item { display: flex; gap: 0.75rem; padding: 0.6rem 0; align-items: flex-start; }
+    .why-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .why-text { font-size: 0.85rem; color: var(--text2); }
+    .why-text strong { display: block; color: var(--text); font-size: 0.88rem; margin-bottom: 0.15rem; }
+
+    @media (max-width: 900px) {
+      .booking-layout { grid-template-columns: 1fr; }
+      .sidebar-sticky { position: static; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .time-slots { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo-icon">🛋️</div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-main">Meuble</span>
+      <span class="nav-brand-sub">Concept Design</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">الرئيسية</a>
+    <a href="index.html#products">المنتجات</a>
+    <a href="booking.html" class="active">حجز استشارة</a>
+  </div>
+  <div class="nav-actions">
+    <span id="nav-user"></span>
+    <a href="admin/index.html" id="nav-admin" style="display:none" class="btn-icon">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    </a>
+    <a href="login.html" id="nav-login" class="btn btn-primary btn-sm">دخول</a>
+    <button id="nav-logout" style="display:none" class="btn btn-ghost btn-sm">خروج</button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1 class="page-title">📅 احجز استشارة مجانية</h1>
+    <p class="page-sub">خبراؤنا في خدمتك لمساعدتك في اختيار الأثاث المثالي لمنزلك</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="booking-layout">
+
+    <!-- FORM -->
+    <div>
+      <div id="success-card" style="display:none;text-align:center;padding:3rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);">
+        <div style="font-size:4rem;margin-bottom:1rem;">✅</div>
+        <h2 style="font-size:1.5rem;margin-bottom:0.5rem;">تم تأكيد حجزك!</h2>
+        <p style="color:var(--text2);margin-bottom:1.5rem;">سيتواصل معك فريقنا قريباً لتأكيد الموعد</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="index.html" class="btn btn-primary">تصفح المنتجات</a>
+          <button class="btn btn-outline" onclick="resetForm()">حجز جديد</button>
+        </div>
+      </div>
+
+      <div id="form-card" class="booking-form-card">
+        <div id="alert-container"></div>
+
+        <!-- STEP 1: SERVICE -->
+        <div class="form-section" id="step-service">
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:var(--gold2);">1. اختر نوع الاستشارة</h3>
+          <div class="services-grid">
+            <label class="service-option selected" data-service="تصميم داخلي">
+              <input type="radio" name="service" value="تصميم داخلي" checked />
+              <span class="service-icon">🎨</span>
+              <div class="service-name">تصميم داخلي</div>
+              <div class="service-desc">استشارة كاملة لتصميم غرفتك</div>
+            </label>
+            <label class="service-option" data-service="اختيار أثاث">
+              <input type="radio" name="service" value="اختيار أثاث" />
+              <span class="service-icon">🛋️</span>
+              <div class="service-name">اختيار أثاث</div>
+              <div class="service-desc">مساعدة في اختيار القطع المناسبة</div>
+            </label>
+            <label class="service-option" data-service="تقدير الميزانية">
+              <input type="radio" name="service" value="تقدير الميزانية" />
+              <span class="service-icon">💰</span>
+              <div class="service-name">تقدير الميزانية</div>
+              <div class="service-desc">تحديد الميزانية المناسبة لمشروعك</div>
+            </label>
+            <label class="service-option" data-service="استشارة توصيل">
+              <input type="radio" name="service" value="استشارة توصيل" />
+              <span class="service-icon">🚚</span>
+              <div class="service-name">استشارة توصيل</div>
+              <div class="service-desc">معلومات عن التوصيل والتركيب</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEP 2: INFO -->
+        <div class="form-section" id="step-info">
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:var(--gold2);">2. بياناتك الشخصية</h3>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="form-group">
+              <label class="form-label">الاسم الكامل *</label>
+              <input type="text" class="form-input" id="booking-name" placeholder="محمد أمين" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">رقم الهاتف *</label>
+              <input type="tel" class="form-input" id="booking-phone" placeholder="0556 000 000" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">البريد الإلكتروني *</label>
+            <input type="email" class="form-input" id="booking-email" placeholder="example@email.com" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">الولاية / المدينة</label>
+            <select class="form-input" id="booking-city">
+              <option value="">اختر الولاية</option>
+              <option>الجزائر</option>
+              <option>وهران</option>
+              <option>قسنطينة</option>
+              <option>عنابة</option>
+              <option>سطيف</option>
+              <option>تلمسان</option>
+              <option>بجاية</option>
+              <option>تيزي وزو</option>
+              <option>بسكرة</option>
+              <option>ولاية أخرى</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- STEP 3: DATE/TIME -->
+        <div class="form-section" id="step-datetime">
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:var(--gold2);">3. اختر موعدك</h3>
+
+          <div class="form-group">
+            <label class="form-label">التاريخ *</label>
+            <input type="date" class="form-input" id="booking-date" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">الوقت المفضّل</label>
+            <div class="time-slots" id="time-slots">
+              <button type="button" class="time-slot" data-time="09:00">09:00</button>
+              <button type="button" class="time-slot" data-time="10:00">10:00</button>
+              <button type="button" class="time-slot" data-time="11:00">11:00</button>
+              <button type="button" class="time-slot unavailable" data-time="12:00">12:00</button>
+              <button type="button" class="time-slot" data-time="13:00">13:00</button>
+              <button type="button" class="time-slot" data-time="14:00">14:00</button>
+              <button type="button" class="time-slot" data-time="15:00">15:00</button>
+              <button type="button" class="time-slot" data-time="16:00">16:00</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">ملاحظات إضافية</label>
+            <textarea class="form-textarea" id="booking-notes" placeholder="أي معلومات إضافية تريد مشاركتها..."></textarea>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full btn-lg" id="booking-btn">
+          تأكيد الحجز
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar-sticky">
+      <div class="booking-summary">
+        <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:1.25rem;">ملخص الحجز</h3>
+
+        <div class="summary-row">
+          <span class="summary-label">الخدمة</span>
+          <span class="summary-val" id="sum-service">تصميم داخلي</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">التاريخ</span>
+          <span class="summary-val" id="sum-date">—</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">الوقت</span>
+          <span class="summary-val" id="sum-time">—</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">المدة</span>
+          <span class="summary-val">60 دقيقة</span>
+        </div>
+        <div class="summary-row" style="border-bottom:none;">
+          <span class="summary-label">التكلفة</span>
+          <span class="summary-val" style="color:var(--success);font-size:1.05rem;">مجاناً 🎁</span>
+        </div>
+      </div>
+
+      <div class="why-us">
+        <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:1rem;font-weight:700;">لماذا نحن؟</h4>
+        <div class="why-item">
+          <div class="why-icon">🏆</div>
+          <div class="why-text"><strong>خبرة 10 سنوات</strong>في تصميم المنازل الجزائرية</div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">✅</div>
+          <div class="why-text"><strong>استشارة مجانية</strong>بدون أي التزام منك</div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🎯</div>
+          <div class="why-text"><strong>حلول مخصصة</strong>تناسب ذوقك وميزانيتك</div>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">⭐</div>
+          <div class="why-text"><strong>+2000 عميل راضٍ</strong>تحدّث عنا بخير</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="module">
+  import { supabase } from './js/supabase.js';
+  import { getCurrentUser, isAdmin, logout, updateNavAuth } from './js/auth.js';
+
+  let selectedTime = null;
+  let selectedService = 'تصميم داخلي';
+
+  async function init() {
+    const user = await getCurrentUser();
+    updateNavAuth(user);
+    document.getElementById('nav-logout')?.addEventListener('click', () => logout());
+
+    // Prefill email if logged in
+    if (user) {
+      document.getElementById('booking-email').value = user.email;
+      if (user.user_metadata?.full_name) {
+        document.getElementById('booking-name').value = user.user_metadata.full_name;
+      }
+    }
+
+    // Set min date to tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById('booking-date').min = tomorrow.toISOString().split('T')[0];
+
+    bindEvents(user);
+  }
+
+  function bindEvents(user) {
+    // Service selection
+    document.querySelectorAll('.service-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        selectedService = opt.dataset.service;
+        document.getElementById('sum-service').textContent = selectedService;
+      });
+    });
+
+    // Time slots
+    document.querySelectorAll('.time-slot:not(.unavailable)').forEach(slot => {
+      slot.addEventListener('click', () => {
+        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+        slot.classList.add('selected');
+        selectedTime = slot.dataset.time;
+        document.getElementById('sum-time').textContent = selectedTime;
+      });
+    });
+
+    // Date
+    document.getElementById('booking-date').addEventListener('change', e => {
+      const d = new Date(e.target.value);
+      document.getElementById('sum-date').textContent = d.toLocaleDateString('ar-DZ', { weekday:'long', day:'numeric', month:'long' });
+    });
+
+    // Submit
+    document.getElementById('booking-btn').addEventListener('click', () => submitBooking(user));
+  }
+
+  async function submitBooking(user) {
+    const name = document.getElementById('booking-name').value.trim();
+    const email = document.getElementById('booking-email').value.trim();
+    const date = document.getElementById('booking-date').value;
+    const notes = document.getElementById('booking-notes').value.trim();
+    const alertBox = document.getElementById('alert-container');
+
+    alertBox.innerHTML = '';
+
+    if (!name || !email || !date || !selectedTime) {
+      alertBox.innerHTML = '<div class="alert alert-error">يرجى ملء جميع الحقول المطلوبة واختيار وقت</div>';
+      return;
+    }
+
+    const btn = document.getElementById('booking-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner" style="width:20px;height:20px;margin:auto"></div>';
+
+    try {
+      const bookingData = {
+        name,
+        email,
+        service: selectedService,
+        date: `${date}T${selectedTime}:00`,
+        status: 'pending',
+        notes,
+      };
+
+      if (user) bookingData.user_id = user.id;
+
+      const { error } = await supabase.from('bookings').insert([bookingData]);
+      if (error) throw error;
+
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('success-card').style.display = 'block';
+    } catch (e) {
+      alertBox.innerHTML = `<div class="alert alert-error">حدث خطأ: ${e.message}</div>`;
+      btn.disabled = false;
+      btn.innerHTML = 'تأكيد الحجز <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>';
+    }
+  }
+
+  window.resetForm = () => {
+    document.getElementById('form-card').style.display = 'block';
+    document.getElementById('success-card').style.display = 'none';
+    document.getElementById('booking-name').value = '';
+    document.getElementById('booking-date').value = '';
+    selectedTime = null;
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    document.getElementById('sum-date').textContent = '—';
+    document.getElementById('sum-time').textContent = '—';
+  };
+
+  init();
+</script>
+</body>
+</html>
