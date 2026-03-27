@@ -1,55 +1,36 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>إنشاء حساب | Meuble Concept Design</title>
+  <title>Créer un compte | Meuble Concept Design</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .auth-page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      position: relative;
-    }
-    .auth-page::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(201,168,76,0.07) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .auth-container { width: 100%; max-width: 480px; position: relative; z-index: 1; }
-    .auth-logo { text-align: center; margin-bottom: 2rem; }
-    .auth-logo-icon {
-      width: 64px; height: 64px;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      border-radius: 16px;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: 1.75rem; margin-bottom: 0.75rem;
-      box-shadow: 0 8px 30px rgba(201,168,76,0.3);
-    }
-    .auth-logo h1 { font-family: 'Orbitron', monospace; font-size: 1rem; letter-spacing: 3px; color: var(--gold2); text-transform: uppercase; }
-    .auth-logo p { color: var(--text3); font-size: 0.78rem; letter-spacing: 2px; }
-    .auth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius2); padding: 2.25rem; box-shadow: var(--shadow), var(--gold-glow); }
-    .auth-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.35rem; }
-    .auth-subtitle { color: var(--text2); font-size: 0.88rem; margin-bottom: 2rem; }
-    .back-home { display: flex; align-items: center; gap: 0.4rem; color: var(--text3); text-decoration: none; font-size: 0.85rem; justify-content: center; margin-top: 1.5rem; transition: var(--transition); }
-    .back-home:hover { color: var(--gold2); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .strength-bar { height: 4px; border-radius: 2px; background: var(--border); margin-top: 0.4rem; overflow: hidden; }
-    .strength-fill { height: 100%; border-radius: 2px; transition: all 0.3s; width: 0; }
-    .strength-weak .strength-fill { width: 33%; background: var(--danger); }
-    .strength-medium .strength-fill { width: 66%; background: #e6a84c; }
-    .strength-strong .strength-fill { width: 100%; background: var(--success); }
-    .terms { display: flex; gap: 0.6rem; align-items: flex-start; margin-bottom: 1.25rem; font-size: 0.85rem; color: var(--text2); }
-    .terms input[type="checkbox"] { margin-top: 3px; accent-color: var(--gold); flex-shrink: 0; width: 16px; height: 16px; cursor: pointer; }
-    .terms a { color: var(--gold2); text-decoration: none; }
-    .auth-login-link { text-align: center; margin-top: 1.5rem; color: var(--text3); font-size: 0.88rem; }
-    .auth-login-link a { color: var(--gold2); text-decoration: none; font-weight: 600; }
-    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    body { direction: ltr; font-family: 'Tajawal', sans-serif; }
+    .auth-page { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem 1rem; position:relative; }
+    .auth-page::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse 60% 50% at 70% 30%,rgba(201,168,76,.07) 0%,transparent 60%); pointer-events:none; }
+    .auth-container { width:100%; max-width:480px; position:relative; z-index:1; }
+    .auth-logo { text-align:center; margin-bottom:2rem; }
+    .auth-logo-icon { width:64px; height:64px; background:linear-gradient(135deg,var(--gold),var(--gold2)); border-radius:16px; display:inline-flex; align-items:center; justify-content:center; font-size:1.75rem; margin-bottom:0.75rem; box-shadow:0 8px 30px rgba(201,168,76,.3); }
+    .auth-logo h1 { font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:3px; color:var(--gold2); text-transform:uppercase; }
+    .auth-logo p { color:var(--text3); font-size:0.78rem; letter-spacing:2px; }
+    .auth-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius2); padding:2.25rem; box-shadow:var(--shadow),var(--gold-glow); }
+    .auth-title { font-size:1.4rem; font-weight:700; margin-bottom:0.35rem; }
+    .auth-subtitle { color:var(--text2); font-size:0.88rem; margin-bottom:2rem; }
+    .back-home { display:flex; align-items:center; gap:0.4rem; color:var(--text3); text-decoration:none; font-size:0.85rem; justify-content:center; margin-top:1.5rem; transition:var(--transition); }
+    .back-home:hover { color:var(--gold2); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .strength-bar { height:4px; border-radius:2px; background:var(--border); margin-top:0.4rem; overflow:hidden; }
+    .strength-fill { height:100%; border-radius:2px; transition:all 0.3s; width:0; }
+    .strength-weak .strength-fill { width:33%; background:var(--danger); }
+    .strength-medium .strength-fill { width:66%; background:#e6a84c; }
+    .strength-strong .strength-fill { width:100%; background:var(--success); }
+    .terms { display:flex; gap:0.6rem; align-items:flex-start; margin-bottom:1.25rem; font-size:0.85rem; color:var(--text2); }
+    .terms input[type="checkbox"] { margin-top:3px; accent-color:var(--gold); flex-shrink:0; width:16px; height:16px; cursor:pointer; }
+    .terms a { color:var(--gold2); text-decoration:none; }
+    .auth-login-link { text-align:center; margin-top:1.5rem; color:var(--text3); font-size:0.88rem; }
+    .auth-login-link a { color:var(--gold2); text-decoration:none; font-weight:600; }
+    @media(max-width:480px){.form-row{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
@@ -62,56 +43,56 @@
     </div>
 
     <div class="auth-card">
-      <h2 class="auth-title">إنشاء حساب جديد ✨</h2>
-      <p class="auth-subtitle">انضم إلينا وابدأ رحلة التسوق الفاخرة</p>
+      <h2 class="auth-title">Créer un compte ✨</h2>
+      <p class="auth-subtitle">Rejoignez-nous et commencez votre expérience shopping de luxe</p>
 
       <div id="alert-container"></div>
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">الاسم الأول</label>
-          <input type="text" class="form-input" id="first-name" placeholder="محمد" />
+          <label class="form-label">Prénom</label>
+          <input type="text" class="form-input" id="first-name" placeholder="Mohammed" />
         </div>
         <div class="form-group">
-          <label class="form-label">اسم العائلة</label>
-          <input type="text" class="form-input" id="last-name" placeholder="الجزائري" />
+          <label class="form-label">Nom de famille</label>
+          <input type="text" class="form-input" id="last-name" placeholder="Amine" />
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">البريد الإلكتروني</label>
-        <input type="email" class="form-input" id="email" placeholder="example@email.com" autocomplete="email" />
+        <label class="form-label">Adresse e-mail</label>
+        <input type="email" class="form-input" id="email" placeholder="exemple@email.com" autocomplete="email" />
       </div>
 
       <div class="form-group">
-        <label class="form-label">كلمة المرور</label>
-        <input type="password" class="form-input" id="password" placeholder="8 أحرف على الأقل" autocomplete="new-password" id="password" />
+        <label class="form-label">Mot de passe</label>
+        <input type="password" class="form-input" id="password" placeholder="8 caractères minimum" autocomplete="new-password" />
         <div class="strength-bar" id="strength-bar"><div class="strength-fill"></div></div>
         <div id="strength-label" style="font-size:0.75rem;margin-top:0.3rem;color:var(--text3)"></div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">تأكيد كلمة المرور</label>
-        <input type="password" class="form-input" id="confirm-password" placeholder="أعد كتابة كلمة المرور" autocomplete="new-password" />
+        <label class="form-label">Confirmer le mot de passe</label>
+        <input type="password" class="form-input" id="confirm-password" placeholder="Retapez votre mot de passe" autocomplete="new-password" />
       </div>
 
       <div class="terms">
         <input type="checkbox" id="terms-check" />
-        <label for="terms-check">أوافق على <a href="#">شروط الاستخدام</a> و<a href="#">سياسة الخصوصية</a></label>
+        <label for="terms-check">J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a></label>
       </div>
 
       <button class="btn btn-primary btn-full btn-lg" id="register-btn">
-        إنشاء الحساب
+        Créer mon compte
       </button>
 
       <div class="auth-login-link">
-        لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>
+        Déjà un compte ? <a href="login.html">Se connecter</a>
       </div>
     </div>
 
     <a href="index.html" class="back-home">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      العودة للرئيسية
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      Retour à l'accueil
     </a>
   </div>
 </div>
@@ -128,17 +109,15 @@
     alertBox.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
   }
 
-  // Password strength
   document.getElementById('password').addEventListener('input', e => {
     const val = e.target.value;
     const bar = document.getElementById('strength-bar');
     const label = document.getElementById('strength-label');
     bar.className = 'strength-bar';
-
     if (!val) { label.textContent = ''; return; }
-    if (val.length < 6) { bar.classList.add('strength-weak'); label.textContent = 'ضعيفة'; label.style.color = 'var(--danger)'; }
-    else if (val.length < 10 || !/[A-Z]/.test(val) || !/[0-9]/.test(val)) { bar.classList.add('strength-medium'); label.textContent = 'متوسطة'; label.style.color = '#e6a84c'; }
-    else { bar.classList.add('strength-strong'); label.textContent = 'قوية'; label.style.color = 'var(--success)'; }
+    if (val.length < 6) { bar.classList.add('strength-weak'); label.textContent = 'Faible'; label.style.color = 'var(--danger)'; }
+    else if (val.length < 10 || !/[A-Z]/.test(val) || !/[0-9]/.test(val)) { bar.classList.add('strength-medium'); label.textContent = 'Moyen'; label.style.color = '#e6a84c'; }
+    else { bar.classList.add('strength-strong'); label.textContent = 'Fort'; label.style.color = 'var(--success)'; }
   });
 
   async function handleRegister() {
@@ -150,36 +129,23 @@
     const terms = document.getElementById('terms-check').checked;
 
     alertBox.innerHTML = '';
-
-    if (!firstName || !lastName || !email || !password) {
-      showAlert('يرجى ملء جميع الحقول');
-      return;
-    }
-    if (password.length < 8) {
-      showAlert('كلمة المرور يجب أن تكون 8 أحرف على الأقل');
-      return;
-    }
-    if (password !== confirm) {
-      showAlert('كلمتا المرور غير متطابقتان');
-      return;
-    }
-    if (!terms) {
-      showAlert('يجب الموافقة على شروط الاستخدام');
-      return;
-    }
+    if (!firstName || !lastName || !email || !password) { showAlert("Veuillez remplir tous les champs"); return; }
+    if (password.length < 8) { showAlert("Le mot de passe doit contenir au moins 8 caractères"); return; }
+    if (password !== confirm) { showAlert("Les mots de passe ne correspondent pas"); return; }
+    if (!terms) { showAlert("Vous devez accepter les conditions d'utilisation"); return; }
 
     registerBtn.disabled = true;
-    registerBtn.textContent = 'جاري إنشاء الحساب...';
+    registerBtn.textContent = 'Création en cours...';
 
     try {
       await register(email, password, `${firstName} ${lastName}`);
-      showAlert('تم إنشاء الحساب بنجاح! جاري التحويل...', 'success');
+      showAlert('Compte créé avec succès ! Redirection...', 'success');
       setTimeout(() => window.location.href = '/index.html', 1200);
     } catch (e) {
-      const msg = e.message.includes('already registered') ? 'هذا البريد الإلكتروني مسجّل مسبقاً' : e.message;
+      const msg = e.message.includes('already registered') ? 'Cet email est déjà enregistré' : e.message;
       showAlert(msg);
       registerBtn.disabled = false;
-      registerBtn.textContent = 'إنشاء الحساب';
+      registerBtn.textContent = 'Créer mon compte';
     }
   }
 

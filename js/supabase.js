@@ -6,3 +6,4 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 export const ADMIN_EMAIL_DOMAIN = 'meubleconcept.com';
 export const ADMIN_EMAIL = 'admin@meubleconcept.com';
+export const STORAGE_BUCKET = 'product-images';

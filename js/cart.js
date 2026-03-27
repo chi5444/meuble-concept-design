@@ -69,7 +69,7 @@ function showCartToast(title) {
     toast.className = 'cart-toast';
     document.body.appendChild(toast);
   }
-  toast.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> تمت الإضافة: ${title}`;
+  toast.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Ajouté : ${title}`;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 3000);
 }

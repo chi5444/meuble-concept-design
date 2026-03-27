@@ -1,144 +1,35 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تسجيل الدخول | Meuble Concept Design</title>
+  <title>Connexion | Meuble Concept Design</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .auth-page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      position: relative;
-    }
-
-    .auth-page::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 30% 20%, rgba(201,168,76,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .auth-container {
-      width: 100%;
-      max-width: 440px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .auth-logo {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .auth-logo-icon {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      border-radius: 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.75rem;
-      margin-bottom: 0.75rem;
-      box-shadow: 0 8px 30px rgba(201,168,76,0.3);
-    }
-
-    .auth-logo h1 {
-      font-family: 'Orbitron', monospace;
-      font-size: 1rem;
-      letter-spacing: 3px;
-      color: var(--gold2);
-      text-transform: uppercase;
-    }
-
-    .auth-logo p { color: var(--text3); font-size: 0.78rem; letter-spacing: 2px; }
-
-    .auth-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius2);
-      padding: 2.25rem;
-      box-shadow: var(--shadow), var(--gold-glow);
-    }
-
-    .auth-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-    }
-
-    .auth-subtitle {
-      color: var(--text2);
-      font-size: 0.88rem;
-      margin-bottom: 2rem;
-    }
-
-    .auth-footer {
-      text-align: center;
-      margin-top: 1.5rem;
-      color: var(--text3);
-      font-size: 0.88rem;
-    }
-
-    .auth-footer a {
-      color: var(--gold2);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .auth-footer a:hover { text-decoration: underline; }
-
-    .divider-text {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin: 1.5rem 0;
-      color: var(--text3);
-      font-size: 0.82rem;
-    }
-
-    .divider-text::before, .divider-text::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .back-home {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      color: var(--text3);
-      text-decoration: none;
-      font-size: 0.85rem;
-      justify-content: center;
-      margin-top: 1.5rem;
-      transition: var(--transition);
-    }
-
-    .back-home:hover { color: var(--gold2); }
-
-    .input-password-wrap { position: relative; }
-    .toggle-pass {
-      position: absolute;
-      left: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--text3);
-      cursor: pointer;
-      padding: 0.25rem;
-    }
-
-    .toggle-pass:hover { color: var(--gold2); }
+    body { direction: ltr; font-family: 'Tajawal', sans-serif; }
+    .auth-page { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem 1rem; position:relative; }
+    .auth-page::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(201,168,76,.07) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(201,168,76,.04) 0%,transparent 60%); pointer-events:none; }
+    .auth-container { width:100%; max-width:440px; position:relative; z-index:1; }
+    .auth-logo { text-align:center; margin-bottom:2rem; }
+    .auth-logo-icon { width:64px; height:64px; background:linear-gradient(135deg,var(--gold),var(--gold2)); border-radius:16px; display:inline-flex; align-items:center; justify-content:center; font-size:1.75rem; margin-bottom:0.75rem; box-shadow:0 8px 30px rgba(201,168,76,.3); }
+    .auth-logo h1 { font-family:'Orbitron',monospace; font-size:1rem; letter-spacing:3px; color:var(--gold2); text-transform:uppercase; }
+    .auth-logo p { color:var(--text3); font-size:0.78rem; letter-spacing:2px; }
+    .auth-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius2); padding:2.25rem; box-shadow:var(--shadow),var(--gold-glow); }
+    .auth-title { font-size:1.4rem; font-weight:700; margin-bottom:0.35rem; }
+    .auth-subtitle { color:var(--text2); font-size:0.88rem; margin-bottom:2rem; }
+    .auth-footer { text-align:center; margin-top:1.5rem; color:var(--text3); font-size:0.88rem; }
+    .auth-footer a { color:var(--gold2); text-decoration:none; font-weight:600; }
+    .auth-footer a:hover { text-decoration:underline; }
+    .divider-text { display:flex; align-items:center; gap:0.75rem; margin:1.5rem 0; color:var(--text3); font-size:0.82rem; }
+    .divider-text::before, .divider-text::after { content:''; flex:1; height:1px; background:var(--border); }
+    .back-home { display:flex; align-items:center; gap:0.4rem; color:var(--text3); text-decoration:none; font-size:0.85rem; justify-content:center; margin-top:1.5rem; transition:var(--transition); }
+    .back-home:hover { color:var(--gold2); }
+    .input-password-wrap { position:relative; }
+    .toggle-pass { position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--text3); cursor:pointer; padding:0.25rem; }
+    .toggle-pass:hover { color:var(--gold2); }
+    /* WhatsApp link */
+    .wa-help { display:inline-flex; align-items:center; gap:0.4rem; color:#25D366; font-size:0.82rem; text-decoration:none; margin-top:0.5rem; }
+    .wa-help:hover { text-decoration:underline; }
   </style>
 </head>
 <body>
@@ -151,18 +42,18 @@
     </div>
 
     <div class="auth-card">
-      <h2 class="auth-title">مرحباً بعودتك 👋</h2>
-      <p class="auth-subtitle">سجّل الدخول إلى حسابك للمتابعة</p>
+      <h2 class="auth-title">Bienvenue 👋</h2>
+      <p class="auth-subtitle">Connectez-vous à votre compte pour continuer</p>
 
       <div id="alert-container"></div>
 
       <div class="form-group">
-        <label class="form-label">البريد الإلكتروني</label>
-        <input type="email" class="form-input" id="email" placeholder="example@email.com" autocomplete="email" />
+        <label class="form-label">Adresse e-mail</label>
+        <input type="email" class="form-input" id="email" placeholder="exemple@email.com" autocomplete="email" />
       </div>
 
       <div class="form-group">
-        <label class="form-label">كلمة المرور</label>
+        <label class="form-label">Mot de passe</label>
         <div class="input-password-wrap">
           <input type="password" class="form-input" id="password" placeholder="••••••••" autocomplete="current-password" />
           <button class="toggle-pass" id="toggle-pass" type="button" tabindex="-1">
@@ -172,19 +63,26 @@
       </div>
 
       <button class="btn btn-primary btn-full btn-lg" id="login-btn" style="margin-top:0.5rem;">
-        تسجيل الدخول
+        Se connecter
       </button>
 
-      <div class="divider-text">أو</div>
+      <div style="text-align:center;margin-top:0.75rem;">
+        <a href="https://wa.me/21628510270" target="_blank" class="wa-help">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Besoin d'aide ? WhatsApp
+        </a>
+      </div>
+
+      <div class="divider-text">ou</div>
 
       <div class="auth-footer" style="margin-top:0;">
-        ليس لديك حساب؟ <a href="register.html">إنشاء حساب جديد</a>
+        Pas encore de compte ? <a href="register.html">Créer un compte</a>
       </div>
     </div>
 
     <a href="index.html" class="back-home">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      العودة للرئيسية
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      Retour à l'accueil
     </a>
   </div>
 </div>
@@ -192,7 +90,6 @@
 <script type="module">
   import { login, getCurrentUser } from './js/auth.js';
 
-  // Redirect if already logged in
   getCurrentUser().then(user => {
     if (user) window.location.href = '/index.html';
   });
@@ -220,34 +117,28 @@
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
-    if (!email || !password) {
-      showAlert('يرجى ملء جميع الحقول');
-      return;
-    }
+    if (!email || !password) { showAlert('Veuillez remplir tous les champs'); return; }
 
     loginBtn.disabled = true;
-    loginBtn.textContent = 'جاري الدخول...';
+    loginBtn.textContent = 'Connexion en cours...';
     alertBox.innerHTML = '';
 
     try {
       await login(email, password);
-      showAlert('تم تسجيل الدخول بنجاح! جاري التحويل...', 'success');
+      showAlert('Connexion réussie ! Redirection...', 'success');
       setTimeout(() => {
         const redirect = new URLSearchParams(window.location.search).get('redirect') || '/index.html';
         window.location.href = redirect;
       }, 1000);
     } catch (e) {
-      showAlert(e.message === 'Invalid login credentials' ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة' : e.message);
+      showAlert(e.message === 'Invalid login credentials' ? 'Email ou mot de passe incorrect' : e.message);
       loginBtn.disabled = false;
-      loginBtn.textContent = 'تسجيل الدخول';
+      loginBtn.textContent = 'Se connecter';
     }
   }
 
   loginBtn.addEventListener('click', handleLogin);
-
-  document.getElementById('password').addEventListener('keypress', e => {
-    if (e.key === 'Enter') handleLogin();
-  });
+  document.getElementById('password').addEventListener('keypress', e => { if (e.key === 'Enter') handleLogin(); });
 </script>
 </body>
 </html>
