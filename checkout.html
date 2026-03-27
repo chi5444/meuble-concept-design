@@ -186,7 +186,7 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
           <div class="form-group">
             <label class="form-label">Nom complet *</label>
-            <input type="text" class="form-input" id="full-name" placeholder="Mohamed Ali" />
+            <input type="text" class="form-input" id="full-name" placeholder="Mohamed Belhaj" />
           </div>
           <div class="form-group">
             <label class="form-label">Numéro de téléphone *</label>
@@ -274,8 +274,8 @@
         <div id="pay-details-poste" style="margin-top:1rem;display:none;" class="pay-panel">
           <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
             <strong>Compte Poste Tunisienne (CCP) :</strong>
-            <span>Numéro de compte : <strong style="font-family:'Orbitron',monospace;">12345678</strong></span>
-            <span>Clé : <strong>XX</strong></span>
+            <span>Numéro : <strong style="font-family:'Orbitron',monospace;">XXXXXXXX</strong></span>
+            <span>Clé : <strong>74</strong></span>
             <span>Envoyez le reçu sur WhatsApp : <strong>+216 XX XXX XXX</strong></span>
           </div>
         </div>
@@ -290,7 +290,7 @@
           <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
             <strong>Coordonnées bancaires :</strong>
             <span>Banque : STB - Société Tunisienne de Banque</span>
-            <span>RIB : <strong style="font-family:'Orbitron',monospace;font-size:0.82rem;">10 000 0123456789012 34</strong></span>
+            <span>RIB : <strong style="font-family:'Orbitron',monospace;font-size:0.82rem;">XX XXX XXXXXXXXXXXXXXX XX</strong></span>
           </div>
         </div>
       </div>
@@ -323,7 +323,7 @@
 
         <div style="margin-top:1.25rem;padding:0.9rem;background:var(--bg3);border-radius:10px;font-size:0.8rem;color:var(--text3);line-height:1.7;">
           🔒 Vos données sont cryptées et sécurisées<br/>
-          📦 Livraison sous 24 - 48 heures<br/>
+          📦 Livraison sous 48 - 72 heures<br/>
           🔄 Retour gratuit sous 14 jours
         </div>
       </div>
@@ -441,7 +441,7 @@
 
       document.getElementById('checkout-layout').style.display = 'none';
       document.getElementById('success-page').style.display = 'block';
-      document.getElementById('order-ref').textContent = `N° de commande : MCD-TN-${Date.now().toString().slice(-6)}`;
+      document.getElementById('order-ref').textContent = `N° de commande : MCD-${Date.now().toString().slice(-6)}`;
 
       ['st1','st2','st3'].forEach(s => {
         const el = document.getElementById(s);

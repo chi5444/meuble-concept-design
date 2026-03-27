@@ -366,7 +366,7 @@
 ══════════════════════════════════════ -->
 <section class="hero">
   <div class="hero-label">
-    ✨ <span data-ar="أثاث راقي لمنزلك " data-fr="Mobilier haut de gamme pour votre intérieur">أثاث راقي لمنزلك </span>
+    ✨ <span data-ar="أثاث راقي لمنزلك الجزائري" data-fr="Mobilier haut de gamme pour votre intérieur">أثاث راقي لمنزلك الجزائري</span>
   </div>
   <h1 class="hero-title">
     <span data-ar="اكتشف الأناقة" data-fr="Découvrez l'Élégance">اكتشف الأناقة</span><br/>
@@ -406,11 +406,11 @@
       </div>
 
       <button class="filter-chip active" data-cat="all" data-ar="الكل" data-fr="Tous">الكل</button>
-      <button class="filter-chip" data-cat="صالون" data-ar="صالون" data-fr="Salon">صالون</button>
-      <button class="filter-chip" data-cat="غرفة نوم" data-ar="غرفة نوم" data-fr="Chambre">غرفة نوم</button>
-      <button class="filter-chip" data-cat="مطبخ" data-ar="مطبخ" data-fr="Cuisine">مطبخ</button>
-      <button class="filter-chip" data-cat="مكتب" data-ar="مكتب" data-fr="Bureau">مكتب</button>
-      <button class="filter-chip" data-cat="ديكور" data-ar="ديكور" data-fr="Déco">ديكور</button>
+      <button class="filter-chip" data-cat="Salon" data-ar="صالون" data-fr="Salon">صالون</button>
+      <button class="filter-chip" data-cat="Chambre" data-ar="غرفة نوم" data-fr="Chambre">غرفة نوم</button>
+      <button class="filter-chip" data-cat="Cuisine" data-ar="مطبخ" data-fr="Cuisine">مطبخ</button>
+      <button class="filter-chip" data-cat="Bureau" data-ar="مكتب" data-fr="Bureau">مكتب</button>
+      <button class="filter-chip" data-cat="Décoration" data-ar="ديكور" data-fr="Déco">ديكور</button>
     </div>
 
     <div class="products-grid" id="products-grid">
@@ -470,7 +470,7 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div style="font-family:'Orbitron',monospace;font-size:0.9rem;color:var(--gold2);font-weight:700;letter-spacing:2px;">🛋️ MEUBLE CONCEPT</div>
+      <div style="font-family:'Orbitron',monospace;font-size:0.9rem;color:var(--gold2);font-weight:700;letter-spacing:2px;">🛋️ MEUBLE CONCEPT TUNISIE</div>
       <p data-ar="أثاث فاخر يجمع بين الجودة والأناقة، لتحويل منزلك إلى لوحة فنية." data-fr="Mobilier de luxe alliant qualité et élégance pour transformer votre intérieur.">أثاث فاخر يجمع بين الجودة والأناقة، لتحويل منزلك إلى لوحة فنية.</p>
       <div style="margin-top:1rem;">
         <a href="https://wa.me/21628510270" target="_blank" class="wa-footer-link">
@@ -495,7 +495,7 @@
     <div class="footer-col">
       <h4 data-ar="تواصل معنا" data-fr="Contact">تواصل معنا</h4>
       <a href="https://wa.me/21628510270" target="_blank">WhatsApp</a>
-      <a href="/cdn-cgi/l/email-protection#84e7ebeaf0e5e7f0c4e9e1f1e6e8e1e7ebeae7e1f4f0aae7ebe9">Email</a>
+      <a href="mailto:contact@meubleconcept.tn">Email</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -517,7 +517,7 @@
 <!-- ══════════════════════════════════════
      SCRIPTS
 ══════════════════════════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+<script type="module">
   import { supabase } from './js/supabase.js';
   import { getCurrentUser, isAdmin, logout, updateNavAuth } from './js/auth.js';
   import {
@@ -712,7 +712,7 @@
             <div class="cart-item-icon">${item.image_url ? `<img src="${item.image_url}" style="width:100%;height:100%;object-fit:cover;">` : (item.icon || '🛋️')}</div>
             <div class="cart-item-info">
               <div class="cart-item-title">${item.title}</div>
-              <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} DA</div>
+              <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} TND</div>
               <div class="cart-item-qty">
                 <button class="qty-btn" onclick="window.changeQty(${item.id}, ${(item.quantity||1)-1})">−</button>
                 <span class="qty-val">${item.quantity || 1}</span>
@@ -724,7 +724,7 @@
         `;
       }).join('');
     }
-    totalEl.textContent = `${getCartTotal().toLocaleString()} DA`;
+    totalEl.textContent = `${getCartTotal().toLocaleString()} TND`;
     updateCartBadge();
   }
 
@@ -766,9 +766,9 @@
       ? `<span class="product-badge" style="position:static;">${p.badge}</span>` : '';
     document.getElementById('modal-title').textContent = p.title;
     document.getElementById('modal-region').textContent = p.region || '';
-    document.getElementById('modal-price').textContent = `${p.price.toLocaleString()} DA`;
+    document.getElementById('modal-price').textContent = `${p.price.toLocaleString()} TND`;
     const oldEl = document.getElementById('modal-old-price');
-    oldEl.textContent = p.old_price ? `${p.old_price.toLocaleString()} DA` : '';
+    oldEl.textContent = p.old_price ? `${p.old_price.toLocaleString()} TND` : '';
 
     const addBtn = document.getElementById('modal-add-btn');
     const consultBtn = document.getElementById('modal-consult-btn');

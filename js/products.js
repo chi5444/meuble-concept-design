@@ -65,8 +65,8 @@ export function renderProductCard(product) {
         <h3 class="product-title">${product.title}</h3>
         ${product.region ? `<div class="product-region">${product.region}</div>` : ''}
         <div class="product-pricing">
-          <span class="product-price">${product.price.toLocaleString('fr-DZ')} DA</span>
-          ${product.old_price ? `<span class="product-old-price">${product.old_price.toLocaleString('fr-DZ')} DA</span>` : ''}
+          <span class="product-price">${product.price.toLocaleString('fr-TN')} TND</span>
+          ${product.old_price ? `<span class="product-old-price">${product.old_price.toLocaleString('fr-TN')} TND</span>` : ''}
         </div>
         <div class="product-actions">
           <button class="btn-cart ${!product.in_stock ? 'disabled' : ''}" onclick="window.addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})" ${!product.in_stock ? 'disabled' : ''}>
