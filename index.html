@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meuble Concept Tunisie | أثاث فاخر</title>
+  <title>Meuble Concept Design | أثاث فاخر</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
     /* ── LANG TOGGLE ── */
@@ -406,11 +406,11 @@
       </div>
 
       <button class="filter-chip active" data-cat="all" data-ar="الكل" data-fr="Tous">الكل</button>
-      <button class="filter-chip" data-cat="Salon" data-ar="صالون" data-fr="Salon">صالون</button>
-      <button class="filter-chip" data-cat="Chambre" data-ar="غرفة نوم" data-fr="Chambre">غرفة نوم</button>
-      <button class="filter-chip" data-cat="Cuisine" data-ar="مطبخ" data-fr="Cuisine">مطبخ</button>
-      <button class="filter-chip" data-cat="Bureau" data-ar="مكتب" data-fr="Bureau">مكتب</button>
-      <button class="filter-chip" data-cat="Décoration" data-ar="ديكور" data-fr="Déco">ديكور</button>
+      <button class="filter-chip" data-cat="صالون" data-ar="صالون" data-fr="Salon">صالون</button>
+      <button class="filter-chip" data-cat="غرفة نوم" data-ar="غرفة نوم" data-fr="Chambre">غرفة نوم</button>
+      <button class="filter-chip" data-cat="مطبخ" data-ar="مطبخ" data-fr="Cuisine">مطبخ</button>
+      <button class="filter-chip" data-cat="مكتب" data-ar="مكتب" data-fr="Bureau">مكتب</button>
+      <button class="filter-chip" data-cat="ديكور" data-ar="ديكور" data-fr="Déco">ديكور</button>
     </div>
 
     <div class="products-grid" id="products-grid">
@@ -434,7 +434,7 @@
   <div class="cart-footer">
     <div class="cart-total-row">
       <span class="cart-total-label" data-ar="المجموع" data-fr="Total">المجموع</span>
-      <span class="cart-total-val" id="cart-total">0 TND</span>
+      <span class="cart-total-val" id="cart-total">0 DA</span>
     </div>
     <a href="checkout.html" class="btn btn-primary btn-full btn-lg" data-ar="إتمام الطلب" data-fr="Commander">إتمام الطلب</a>
   </div>
@@ -470,7 +470,7 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div style="font-family:'Orbitron',monospace;font-size:0.9rem;color:var(--gold2);font-weight:700;letter-spacing:2px;">🛋️ MEUBLE CONCEPT TUNISIE</div>
+      <div style="font-family:'Orbitron',monospace;font-size:0.9rem;color:var(--gold2);font-weight:700;letter-spacing:2px;">🛋️ MEUBLE CONCEPT</div>
       <p data-ar="أثاث فاخر يجمع بين الجودة والأناقة، لتحويل منزلك إلى لوحة فنية." data-fr="Mobilier de luxe alliant qualité et élégance pour transformer votre intérieur.">أثاث فاخر يجمع بين الجودة والأناقة، لتحويل منزلك إلى لوحة فنية.</p>
       <div style="margin-top:1rem;">
         <a href="https://wa.me/21628510270" target="_blank" class="wa-footer-link">
@@ -495,11 +495,11 @@
     <div class="footer-col">
       <h4 data-ar="تواصل معنا" data-fr="Contact">تواصل معنا</h4>
       <a href="https://wa.me/21628510270" target="_blank">WhatsApp</a>
-      <a href="mailto:contact@meubleconcept.tn">Email</a>
+      <a href="mailto:contact@meubleconcept.com">Email</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 Meuble Concept Tunisie</span>
+    <span>© 2025 Meuble Concept Design</span>
     <span data-ar="جميع الحقوق محفوظة" data-fr="Tous droits réservés">جميع الحقوق محفوظة</span>
   </div>
 </footer>
@@ -642,8 +642,8 @@
           <h3 class="product-title">${p.title}</h3>
           ${p.region ? `<div class="product-region">${p.region}</div>` : ''}
           <div class="product-pricing">
-            <span class="product-price">${p.price.toLocaleString(currentLang === 'ar' ? 'ar-TN' : 'fr-TN')} TND</span>
-            ${p.old_price ? `<span class="product-old-price">${p.old_price.toLocaleString(currentLang === 'ar' ? 'ar-TN' : 'fr-TN')} TND</span>` : ''}
+            <span class="product-price">${p.price.toLocaleString(currentLang === 'ar' ? 'ar-DZ' : 'fr-DZ')} DA</span>
+            ${p.old_price ? `<span class="product-old-price">${p.old_price.toLocaleString(currentLang === 'ar' ? 'ar-DZ' : 'fr-DZ')} DA</span>` : ''}
           </div>
           <div class="product-actions">
             <button class="btn-cart ${!p.in_stock ? 'disabled' : ''}"
@@ -712,7 +712,7 @@
             <div class="cart-item-icon">${item.image_url ? `<img src="${item.image_url}" style="width:100%;height:100%;object-fit:cover;">` : (item.icon || '🛋️')}</div>
             <div class="cart-item-info">
               <div class="cart-item-title">${item.title}</div>
-              <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} TND</div>
+              <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} DA</div>
               <div class="cart-item-qty">
                 <button class="qty-btn" onclick="window.changeQty(${item.id}, ${(item.quantity||1)-1})">−</button>
                 <span class="qty-val">${item.quantity || 1}</span>
@@ -724,7 +724,7 @@
         `;
       }).join('');
     }
-    totalEl.textContent = `${getCartTotal().toLocaleString()} TND`;
+    totalEl.textContent = `${getCartTotal().toLocaleString()} DA`;
     updateCartBadge();
   }
 
@@ -766,9 +766,9 @@
       ? `<span class="product-badge" style="position:static;">${p.badge}</span>` : '';
     document.getElementById('modal-title').textContent = p.title;
     document.getElementById('modal-region').textContent = p.region || '';
-    document.getElementById('modal-price').textContent = `${p.price.toLocaleString()} TND`;
+    document.getElementById('modal-price').textContent = `${p.price.toLocaleString()} DA`;
     const oldEl = document.getElementById('modal-old-price');
-    oldEl.textContent = p.old_price ? `${p.old_price.toLocaleString()} TND` : '';
+    oldEl.textContent = p.old_price ? `${p.old_price.toLocaleString()} DA` : '';
 
     const addBtn = document.getElementById('modal-add-btn');
     const consultBtn = document.getElementById('modal-consult-btn');
@@ -796,4 +796,8 @@
     if (e.target === document.getElementById('modal-backdrop')) closeModal();
   });
 
-  // ── START ────────────────�
+  // ── START ────────────────────────────────────────────────────────
+  init();
+</script>
+</body>
+</html>

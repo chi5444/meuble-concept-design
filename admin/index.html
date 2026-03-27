@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panneau Admin | Meuble Concept Tunisie</title>
+  <title>Panneau Admin | Meuble Concept Design</title>
   <link rel="stylesheet" href="../css/style.css" />
   <style>
     body { direction: ltr; font-family: 'Tajawal', sans-serif; }
@@ -325,7 +325,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Ancien prix (TND) — optionnel</label>
+            <label class="form-label">Ancien prix (DA) — optionnel</label>
             <input type="number" class="form-input" id="p-old-price" placeholder="60000" min="0" />
           </div>
 
@@ -599,7 +599,7 @@
     document.getElementById('stat-orders').textContent = allOrders.length;
     document.getElementById('stat-bookings').textContent = allBookings.length;
     const revenue = allOrders.filter(o => o.status !== 'cancelled').reduce((s,o) => s + (o.amount || 0), 0);
-    document.getElementById('stat-revenue').textContent = revenue.toLocaleString('fr-TN');
+    document.getElementById('stat-revenue').textContent = revenue.toLocaleString('fr-DZ');
   }
 
   function renderRecentOrders() {
@@ -612,7 +612,7 @@
             <tr>
               <td style="color:var(--text3);font-size:0.8rem;">${o.id?.toString().slice(0,8) || '—'}</td>
               <td>${o.product_title || '—'}</td>
-              <td style="font-family:'Orbitron',monospace;color:var(--gold2);">${(o.amount || 0).toLocaleString('fr-TN')} TND</td>
+              <td style="font-family:'Orbitron',monospace;color:var(--gold2);">${(o.amount || 0).toLocaleString('fr-DZ')} DA</td>
               <td>${statusBadge(o.status)}</td>
             </tr>
           `).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--text3);padding:2rem;">Aucune commande</td></tr>'}
@@ -642,7 +642,7 @@
           </div>
         </td>
         <td><span class="badge badge-gold">${p.category || '—'}</span></td>
-        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.9rem;">${(p.price || 0).toLocaleString('fr-TN')} TND</td>
+        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.9rem;">${(p.price || 0).toLocaleString('fr-DZ')} DA</td>
         <td><span class="badge ${p.in_stock ? 'badge-success' : 'badge-danger'}">${p.in_stock ? '✓ En stock' : '✗ Épuisé'}</span></td>
         <td>
           <div class="action-btn-group">
@@ -661,7 +661,7 @@
         <td style="color:var(--text3);font-size:0.78rem;">${o.id?.toString().slice(0,8)}</td>
         <td>${o.product_title || '—'}</td>
         <td style="font-size:0.85rem;">${o.customer_name || o.user_id?.slice(0,8) || '—'}</td>
-        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.85rem;">${(o.amount || 0).toLocaleString('fr-TN')} TND</td>
+        <td style="font-family:'Orbitron',monospace;color:var(--gold2);font-size:0.85rem;">${(o.amount || 0).toLocaleString('fr-DZ')} DA</td>
         <td>${statusBadge(o.status)}</td>
         <td>
           <div class="action-btn-group">

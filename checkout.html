@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finaliser la commande | Meuble Concept Tunisie</title>
+  <title>Finaliser la commande | Meuble Concept Design</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
     body { direction: ltr; }
@@ -186,42 +186,34 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
           <div class="form-group">
             <label class="form-label">Nom complet *</label>
-            <input type="text" class="form-input" id="full-name" placeholder="Mohamed Belhaj" />
+            <input type="text" class="form-input" id="full-name" placeholder="Mohammed Amine" />
           </div>
           <div class="form-group">
             <label class="form-label">Numéro de téléphone *</label>
-            <input type="tel" class="form-input" id="phone" placeholder="+216 XX XXX XXX" />
+            <input type="tel" class="form-input" id="phone" placeholder="0556 000 000" />
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Gouvernorat *</label>
+          <label class="form-label">Wilaya *</label>
           <select class="form-input" id="wilaya">
-            <option value="">Choisir un gouvernorat</option>
-            <option>Tunis</option>
-            <option>Ariana</option>
-            <option>Ben Arous</option>
-            <option>Manouba</option>
-            <option>Nabeul</option>
-            <option>Zaghouan</option>
-            <option>Bizerte</option>
-            <option>Béja</option>
-            <option>Jendouba</option>
-            <option>Kef</option>
-            <option>Siliana</option>
-            <option>Sousse</option>
-            <option>Monastir</option>
-            <option>Mahdia</option>
-            <option>Sfax</option>
-            <option>Kairouan</option>
-            <option>Kasserine</option>
-            <option>Sidi Bouzid</option>
-            <option>Gabès</option>
-            <option>Médenine</option>
-            <option>Tataouine</option>
-            <option>Gafsa</option>
-            <option>Tozeur</option>
-            <option>Kébili</option>
+            <option value="">Choisir une wilaya</option>
+            <option>Alger - 16</option>
+            <option>Oran - 31</option>
+            <option>Constantine - 25</option>
+            <option>Annaba - 23</option>
+            <option>Sétif - 19</option>
+            <option>Tlemcen - 13</option>
+            <option>Béjaïa - 06</option>
+            <option>Tizi Ouzou - 15</option>
+            <option>Biskra - 07</option>
+            <option>Chlef - 02</option>
+            <option>Blida - 09</option>
+            <option>Batna - 05</option>
+            <option>Skikda - 21</option>
+            <option>Jijel - 18</option>
+            <option>Mostaganem - 27</option>
+            <option>Autre wilaya</option>
           </select>
         </div>
 
@@ -249,15 +241,15 @@
             <div class="pay-icon">💵</div>
             <div class="pay-label">Paiement à la livraison</div>
           </label>
-          <label class="payment-option" data-pay="poste">
-            <input type="radio" name="payment" value="poste" />
+          <label class="payment-option" data-pay="ccp">
+            <input type="radio" name="payment" value="ccp" />
             <div class="pay-icon">🏦</div>
-            <div class="pay-label">Poste Tunisienne</div>
+            <div class="pay-label">CCP Algérie Poste</div>
           </label>
-          <label class="payment-option" data-pay="d17">
-            <input type="radio" name="payment" value="d17" />
+          <label class="payment-option" data-pay="baridimob">
+            <input type="radio" name="payment" value="baridimob" />
             <div class="pay-icon">📱</div>
-            <div class="pay-label">D17 (Flouci)</div>
+            <div class="pay-label">BaridiMob</div>
           </label>
           <label class="payment-option" data-pay="transfer">
             <input type="radio" name="payment" value="transfer" />
@@ -271,26 +263,26 @@
             💡 Vous payez en espèces à la réception de votre colis. Aucune action supplémentaire requise.
           </div>
         </div>
-        <div id="pay-details-poste" style="margin-top:1rem;display:none;" class="pay-panel">
+        <div id="pay-details-ccp" style="margin-top:1rem;display:none;" class="pay-panel">
           <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
-            <strong>Compte Poste Tunisienne (CCP) :</strong>
-            <span>Numéro : <strong style="font-family:'Orbitron',monospace;">XXXXXXXX</strong></span>
+            <strong>Compte CCP pour virement :</strong>
+            <span>Numéro : <strong style="font-family:'Orbitron',monospace;">00123456789</strong></span>
             <span>Clé : <strong>74</strong></span>
-            <span>Envoyez le reçu sur WhatsApp : <strong>+216 XX XXX XXX</strong></span>
+            <span>Envoyez le reçu sur WhatsApp : <strong>+213 560 000 000</strong></span>
           </div>
         </div>
-        <div id="pay-details-d17" style="margin-top:1rem;display:none;" class="pay-panel">
+        <div id="pay-details-baridimob" style="margin-top:1rem;display:none;" class="pay-panel">
           <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
-            <strong>Numéro D17 (Flouci) :</strong>
-            <span style="font-family:'Orbitron',monospace;font-size:1.1rem;">+216 XX XXX XXX</span>
+            <strong>Numéro BaridiMob :</strong>
+            <span style="font-family:'Orbitron',monospace;font-size:1.1rem;">+213 560 000 000</span>
             <span style="font-size:0.82rem;">Envoyez le montant et joignez la capture du reçu dans votre message</span>
           </div>
         </div>
         <div id="pay-details-transfer" style="margin-top:1rem;display:none;" class="pay-panel">
           <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
             <strong>Coordonnées bancaires :</strong>
-            <span>Banque : STB - Société Tunisienne de Banque</span>
-            <span>RIB : <strong style="font-family:'Orbitron',monospace;font-size:0.82rem;">XX XXX XXXXXXXXXXXXXXX XX</strong></span>
+            <span>Banque : BNA - Banque Nationale d'Algérie</span>
+            <span>RIB : <strong style="font-family:'Orbitron',monospace;font-size:0.82rem;">00200 12345 67890123456 78</strong></span>
           </div>
         </div>
       </div>
@@ -372,14 +364,14 @@
             <div class="order-item-name">${item.title}</div>
             <div class="order-item-qty">Quantité : ${item.quantity}</div>
           </div>
-          <div class="order-item-price">${(item.price * item.quantity).toLocaleString('fr-TN')} TND</div>
+          <div class="order-item-price">${(item.price * item.quantity).toLocaleString('fr-DZ')} DA</div>
         </div>
       `;
     }).join('');
 
     const total = getCartTotal();
-    document.getElementById('sub-total').textContent = `${total.toLocaleString('fr-TN')} TND`;
-    document.getElementById('grand-total').textContent = `${total.toLocaleString('fr-TN')} TND`;
+    document.getElementById('sub-total').textContent = `${total.toLocaleString('fr-DZ')} DA`;
+    document.getElementById('grand-total').textContent = `${total.toLocaleString('fr-DZ')} DA`;
   }
 
   function bindEvents(user) {
