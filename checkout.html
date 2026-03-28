@@ -93,10 +93,32 @@
       animation: scaleIn 0.5s ease;
     }
     @keyframes scaleIn { from { transform: scale(0); } to { transform: scale(1); } }
+    /* WhatsApp Float Button */
+    .wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background: #25D366;
+      color: #fff;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.7rem 1.2rem 0.7rem 1rem;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .wa-float:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(37,211,102,0.55); }
+    .wa-float span { white-space: nowrap; }
     @media (max-width: 900px) {
       .checkout-layout { grid-template-columns: 1fr; }
       .order-summary-card { position: static; }
     }
+    @media (max-width: 480px) { .wa-float span { display: none; } .wa-float { padding: 0.85rem; border-radius: 50%; } }
   </style>
 </head>
 <body>
@@ -120,6 +142,12 @@
     <button id="nav-logout" style="display:none" class="btn btn-ghost btn-sm">Déconnexion</button>
   </div>
 </nav>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/21628510270" target="_blank" class="wa-float" title="Contactez-nous sur WhatsApp">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span>Contactez-nous</span>
+</a>
 
 <div class="page-hero">
   <div class="container">
@@ -166,7 +194,10 @@
       <p style="color:var(--gold2);font-family:'Orbitron',monospace;font-size:0.85rem;margin-bottom:2rem;" id="order-ref"></p>
       <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
         <a href="index.html" class="btn btn-primary btn-lg">Retour à la boutique</a>
-        <a href="index.html#products" class="btn btn-outline">Continuer mes achats</a>
+        <a href="https://wa.me/21628510270" target="_blank" class="btn btn-outline" style="display:flex;align-items:center;gap:0.5rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Suivi via WhatsApp
+        </a>
       </div>
     </div>
   </div>
@@ -186,40 +217,49 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
           <div class="form-group">
             <label class="form-label">Nom complet *</label>
-            <input type="text" class="form-input" id="full-name" placeholder="Mohammed Amine" />
+            <input type="text" class="form-input" id="full-name" placeholder="Mohamed Ali" />
           </div>
           <div class="form-group">
             <label class="form-label">Numéro de téléphone *</label>
-            <input type="tel" class="form-input" id="phone" placeholder="0556 000 000" />
+            <input type="tel" class="form-input" id="phone" placeholder="+216 XX XXX XXX" />
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Wilaya *</label>
+          <label class="form-label">Gouvernorat *</label>
           <select class="form-input" id="wilaya">
-            <option value="">Choisir une wilaya</option>
-            <option>Alger - 16</option>
-            <option>Oran - 31</option>
-            <option>Constantine - 25</option>
-            <option>Annaba - 23</option>
-            <option>Sétif - 19</option>
-            <option>Tlemcen - 13</option>
-            <option>Béjaïa - 06</option>
-            <option>Tizi Ouzou - 15</option>
-            <option>Biskra - 07</option>
-            <option>Chlef - 02</option>
-            <option>Blida - 09</option>
-            <option>Batna - 05</option>
-            <option>Skikda - 21</option>
-            <option>Jijel - 18</option>
-            <option>Mostaganem - 27</option>
-            <option>Autre wilaya</option>
+            <option value="">Choisir un gouvernorat</option>
+            <option>Tunis</option>
+            <option>Sfax</option>
+            <option>Sousse</option>
+            <option>Kairouan</option>
+            <option>Bizerte</option>
+            <option>Gabès</option>
+            <option>Ariana</option>
+            <option>Gafsa</option>
+            <option>Monastir</option>
+            <option>Ben Arous</option>
+            <option>Kasserine</option>
+            <option>Médenine</option>
+            <option>Nabeul</option>
+            <option>Tataouine</option>
+            <option>Beja</option>
+            <option>Jendouba</option>
+            <option>Mahdia</option>
+            <option>Sidi Bouzid</option>
+            <option>Siliana</option>
+            <option>Le Kef</option>
+            <option>Tozeur</option>
+            <option>Manouba</option>
+            <option>Zaghouan</option>
+            <option>Kébili</option>
+            <option>Autre</option>
           </select>
         </div>
 
         <div class="form-group">
           <label class="form-label">Adresse détaillée *</label>
-          <textarea class="form-textarea" id="address" placeholder="Numéro, rue, quartier, commune..." style="min-height:80px;"></textarea>
+          <textarea class="form-textarea" id="address" placeholder="Numéro, rue, quartier, délégation..." style="min-height:80px;"></textarea>
         </div>
 
         <div class="form-group">
@@ -241,48 +281,51 @@
             <div class="pay-icon">💵</div>
             <div class="pay-label">Paiement à la livraison</div>
           </label>
-          <label class="payment-option" data-pay="ccp">
-            <input type="radio" name="payment" value="ccp" />
+          <label class="payment-option" data-pay="virement">
+            <input type="radio" name="payment" value="virement" />
             <div class="pay-icon">🏦</div>
-            <div class="pay-label">CCP Algérie Poste</div>
-          </label>
-          <label class="payment-option" data-pay="baridimob">
-            <input type="radio" name="payment" value="baridimob" />
-            <div class="pay-icon">📱</div>
-            <div class="pay-label">BaridiMob</div>
-          </label>
-          <label class="payment-option" data-pay="transfer">
-            <input type="radio" name="payment" value="transfer" />
-            <div class="pay-icon">🔄</div>
             <div class="pay-label">Virement bancaire</div>
+          </label>
+          <label class="payment-option" data-pay="d17">
+            <input type="radio" name="payment" value="d17" />
+            <div class="pay-icon">📱</div>
+            <div class="pay-label">D17 / Paiement mobile</div>
+          </label>
+          <label class="payment-option" data-pay="whatsapp">
+            <input type="radio" name="payment" value="whatsapp" />
+            <div class="pay-icon">💬</div>
+            <div class="pay-label">Coordination WhatsApp</div>
           </label>
         </div>
 
         <div id="pay-details-cash" style="margin-top:1rem;" class="pay-panel">
           <div class="alert alert-success">
-            💡 Vous payez en espèces à la réception de votre colis. Aucune action supplémentaire requise.
+            💡 Vous payez en espèces à la réception de votre commande. Aucune action supplémentaire requise.
           </div>
         </div>
-        <div id="pay-details-ccp" style="margin-top:1rem;display:none;" class="pay-panel">
-          <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
-            <strong>Compte CCP pour virement :</strong>
-            <span>Numéro : <strong style="font-family:'Orbitron',monospace;">00123456789</strong></span>
-            <span>Clé : <strong>74</strong></span>
-            <span>Envoyez le reçu sur WhatsApp : <strong>+213 560 000 000</strong></span>
-          </div>
-        </div>
-        <div id="pay-details-baridimob" style="margin-top:1rem;display:none;" class="pay-panel">
-          <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
-            <strong>Numéro BaridiMob :</strong>
-            <span style="font-family:'Orbitron',monospace;font-size:1.1rem;">+213 560 000 000</span>
-            <span style="font-size:0.82rem;">Envoyez le montant et joignez la capture du reçu dans votre message</span>
-          </div>
-        </div>
-        <div id="pay-details-transfer" style="margin-top:1rem;display:none;" class="pay-panel">
+        <div id="pay-details-virement" style="margin-top:1rem;display:none;" class="pay-panel">
           <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
             <strong>Coordonnées bancaires :</strong>
-            <span>Banque : BNA - Banque Nationale d'Algérie</span>
-            <span>RIB : <strong style="font-family:'Orbitron',monospace;font-size:0.82rem;">00200 12345 67890123456 78</strong></span>
+            <span>Banque : STB / BNA / Votre banque</span>
+            <span>RIB : <strong style="font-family:'Orbitron',monospace;font-size:0.82rem;">À préciser lors de la confirmation</strong></span>
+            <span>Envoyez le reçu sur WhatsApp : <strong>+216 28 510 270</strong></span>
+          </div>
+        </div>
+        <div id="pay-details-d17" style="margin-top:1rem;display:none;" class="pay-panel">
+          <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
+            <strong>Numéro D17 / Paiement mobile :</strong>
+            <span style="font-family:'Orbitron',monospace;font-size:1.1rem;">+216 28 510 270</span>
+            <span style="font-size:0.82rem;">Envoyez le montant et joignez la capture du reçu par WhatsApp</span>
+          </div>
+        </div>
+        <div id="pay-details-whatsapp" style="margin-top:1rem;display:none;" class="pay-panel">
+          <div class="alert alert-success" style="flex-direction:column;align-items:flex-start;gap:0.35rem;">
+            <strong>Coordination directe :</strong>
+            <span>Contactez-nous sur WhatsApp pour coordonner le paiement</span>
+            <a href="https://wa.me/21628510270" target="_blank" style="display:inline-flex;align-items:center;gap:0.4rem;color:#25D366;font-weight:700;text-decoration:none;margin-top:0.25rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Ouvrir WhatsApp → +216 28 510 270
+            </a>
           </div>
         </div>
       </div>
@@ -318,6 +361,11 @@
           📦 Livraison sous 48 - 72 heures<br/>
           🔄 Retour gratuit sous 14 jours
         </div>
+
+        <a href="https://wa.me/21628510270" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1rem;padding:0.75rem;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:10px;color:#25D366;text-decoration:none;font-size:0.85rem;font-weight:600;transition:background 0.2s;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Besoin d'aide ? +216 28 510 270
+        </a>
       </div>
     </div>
   </div>
@@ -354,9 +402,6 @@
   function renderOrderItems(cart) {
     const container = document.getElementById('order-items');
     container.innerHTML = cart.map(item => {
-      const imgContent = item.image_url
-        ? `<img src="${item.image_url}" alt="${item.title}" />`
-        : (item.icon || '🛋️');
       return `
         <div class="order-item">
           <div class="order-item-icon">${item.image_url ? `<img src="${item.image_url}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;" />` : (item.icon || '🛋️')}</div>
@@ -364,14 +409,14 @@
             <div class="order-item-name">${item.title}</div>
             <div class="order-item-qty">Quantité : ${item.quantity}</div>
           </div>
-          <div class="order-item-price">${(item.price * item.quantity).toLocaleString('fr-DZ')} DA</div>
+          <div class="order-item-price">${(item.price * item.quantity).toLocaleString('fr-TN')} DT</div>
         </div>
       `;
     }).join('');
 
     const total = getCartTotal();
-    document.getElementById('sub-total').textContent = `${total.toLocaleString('fr-DZ')} DA`;
-    document.getElementById('grand-total').textContent = `${total.toLocaleString('fr-DZ')} DA`;
+    document.getElementById('sub-total').textContent = `${total.toLocaleString('fr-TN')} DT`;
+    document.getElementById('grand-total').textContent = `${total.toLocaleString('fr-TN')} DT`;
   }
 
   function bindEvents(user) {
